@@ -5,13 +5,18 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const app = express();
 
+// Configs
+require('./configs/db.config');
+
+// Routes
 const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
 //const station = require('./routes/station.routes');
 //const issue = require('./routes/issue.routes');
 
-const app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
