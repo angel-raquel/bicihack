@@ -75,5 +75,12 @@ module.exports.doLogin = (req, res, next) => {
 }
 
 module.exports.logout = (req, res, next) => {
-    res.send("GET LOGOUT");
+    req.session.destroy(error => {
+        if (error) {
+            next(error);
+        } else {
+            req.logout();
+            res.redirect("/login");
+        }
+    });
 }

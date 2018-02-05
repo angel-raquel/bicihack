@@ -53,6 +53,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use( (req, res, next) => {
+  res.locals.loggedUser = req.user;
+  next();
+})
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
