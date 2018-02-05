@@ -75,12 +75,11 @@ module.exports.doLogin = (req, res, next) => {
 }
 
 module.exports.logout = (req, res, next) => {
-    req.session.destroy(error => {
-        if (error) {
-            next(error);
-        } else {
-            req.logout();
-            res.redirect("/login");
-        }
-    });
+    console.log("REQ USER: " + req.user);
+    console.log("***************");
+    console.log(req.session);
+    req.logOut();
+    res.redirect('/login');
+    console.log("REQ USER AFTER LOGOUT: " + req.user);
+    console.log(req.session);
 }
