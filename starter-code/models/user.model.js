@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-require('mongoose-type-email');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
@@ -8,8 +7,9 @@ const USER_ROLE = "USER";
 
 const userSchema = new mongoose.Schema({
     email: {
-        type: mongoose.SchemaTypes.Email,
+        type: String,
         required: [true, 'Email is required.'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
         unique: true
     },
     password: {
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
     },
     favoriteStations: {
-        type: [Schema.Types.ObjectId]
+        type: [mongoose.Schema.Types.ObjectId]
     },
     imageUrl: {
         type: String,
