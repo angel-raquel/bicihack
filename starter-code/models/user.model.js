@@ -6,7 +6,7 @@ const ADMIN_ROLE = "ADMIN";
 const USER_ROLE = "USER";
 
 const userSchema = new mongoose.Schema({
-    username: {
+    email: {
         type: String,
         required: [true, 'Email is required.'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],

@@ -14,7 +14,7 @@ const app = express();
 
 // Configs
 require('./configs/db.config');
-require('./configs/passport.config');
+require('./configs/passport.config').setup(passport);
 
 // Routes
 const index = require('./routes/index.routes');

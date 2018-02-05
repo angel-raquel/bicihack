@@ -16,10 +16,10 @@ module.exports.setup = (passport) => {
     });
 
     passport.use('local-auth', new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password'
-    }, (username, password, next) => {
-        User.findOne({ username: username})
+    }, (email, password, next) => {
+        User.findOne({ email: email})
             .then(user => {
                 if (!user) {
                     next(null, user, { password: 'Invalid username or password.' });
