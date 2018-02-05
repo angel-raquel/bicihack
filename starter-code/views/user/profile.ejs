@@ -1,0 +1,24 @@
+<h2>User profile</h2>
+<hr>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">profile of user: <%= user.email %></h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <ul>
+                <li>ID: <%= user._id %></li>
+                <li>EMAIL: <%= user.email %></li>
+                <li>NAME: <%= user.name %></li>
+                <li>CARDNUMBER: <%= user.cardNumber %></li>
+                <li>ROLE: <%= user.role %></li>
+            </ul>
+        </div>
+
+        <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+        <form action="/user/delete/<%= user._id %>">
+            <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
+        </form>
+
+    </div>
+</div>

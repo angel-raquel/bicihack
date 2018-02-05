@@ -19,6 +19,7 @@ require('./configs/passport.config').setup(passport);
 // Routes
 const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
+const user = require('./routes/user.routes');
 //const station = require('./routes/station.routes');
 //const issue = require('./routes/issue.routes');
 
@@ -56,6 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/', auth);
+app.use('/user', user);
 //app.use('/station', station);
 //app.use('/issue', issue);
 
