@@ -10,16 +10,16 @@ module.exports.doSignup = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if(user != null) {
-                console.log("email ya existe");
                 res.render('auth/signup', {
                     error: { email: 'Email already exists'}
                 })
             }
             else {
-                console.log("nuevo usuario");
                 user = new User({
                     email: req.body.email,
                     password: req.body.password,
+                    name: req.body.name,
+                    cardNumber: req.body.cardNumber,
                     role: req.body.role
                 });
                 user.save()
