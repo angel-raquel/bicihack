@@ -6,19 +6,32 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <ul>
-                <li>ID: <%= user._id %></li>
-                <li>EMAIL: <%= user.email %></li>
-                <li>NAME: <%= user.name %></li>
-                <li>CARDNUMBER: <%= user.cardNumber %></li>
-                <li>ROLE: <%= user.role %></li>
-            </ul>
+            <div class="col-md-1">
+                <img src="<%= user.imageUrl %>" alt="<%= user.imageUrl %>" width="100px" height="100px">
+            </div>
+            
+            <div class="col-md-4">
+                <ul>
+                    <li>ID: <%= user._id %></li>
+                    <li>EMAIL: <%= user.email %></li>
+                    <li>NAME: <%= user.name %></li>
+                    <li>CARDNUMBER: <%= user.cardNumber %></li>
+                    <li>ROLE: <%= user.role %></li>
+                </ul>
+            </div>
+
         </div>
 
-        <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
-        <form action="/user/delete/<%= user._id %>">
-            <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
-        </form>
+        <div class="row">
+            <div class="col-md-1">
+                <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+            </div>
+            <div class="col-md-1">
+                <form action="/user/delete/<%= user._id %>">
+                    <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
+                </form>
+            </div>
+        </div>
 
     </div>
 </div>
