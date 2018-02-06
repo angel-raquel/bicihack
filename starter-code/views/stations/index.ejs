@@ -17,6 +17,7 @@
     </tr>
   </thead>
   <tbody>
+<% if(typeof stations != "undefined") { %>
 <% stations.forEach(station => { %>
   <tr>
     <td><%= station.id %></td>
@@ -34,5 +35,6 @@
     <td><%= station.reservations_count %></td>
   </tr>
 <% }) %>
+<% } %>
   </tbody>
 </table>
