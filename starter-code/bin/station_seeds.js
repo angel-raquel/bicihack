@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Station = require('../models/station.model');
 
+mongoose.connect("mongodb://localhost/bicihack");
+
 const stations = [
 {
     "id": 1,
