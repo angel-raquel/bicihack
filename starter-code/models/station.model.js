@@ -18,7 +18,7 @@ const stationSchema = new mongoose.Schema({
   },
   light: {
     type: Number,
-    required: [true, 'Level of occupation is required']
+    required: [true, 'Level of occupation is required'],
     enum: [0, 1, 2],
     default: 1
   },
