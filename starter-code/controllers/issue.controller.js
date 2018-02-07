@@ -45,10 +45,14 @@ module.exports.doNew = (req, res, next) => {
     });
     issue.save()
         .then(() => {
-            res.send("ISSUE CREATED");
+            res.redirect("/");
         })
         .catch(error => {
-            res.send("ERROR CREATING ISSUE");
+            if (error instanceof mongoose.Error.ValidationError) {
+                res.send("MONGOOSE VALIDATION ERROR");
+            } else {
+                next(error);
+            }
         })
 }
 

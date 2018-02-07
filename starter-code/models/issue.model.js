@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const issueSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ["BIKE", "STATION"],
-        default: "STATION"
+        enum: ["bike", "station"],
+        default: "station"
     },
     referenceId: {
         type: Number,
