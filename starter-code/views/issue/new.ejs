@@ -1,0 +1,41 @@
+<h2>New <%= typeof type != 'undefined' ? type : '' %> issue</h2>
+<hr>
+<div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+        <form action="/issue/new" method="POST">
+
+            <% if(typeof stations != 'undefined') { %>
+            <div class="form-group">
+                <div class="input-group">
+                    <select name="referenceId">
+                        <% stations.forEach(station => { %>
+                            <option value="<%= station.id %>"><%= station.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="type" value="STATION">
+            <% }
+
+            else { %>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="number" name="referenceId" class="form-control" placeholder="Bike reference" required>
+                    </div>
+                </div>
+                <input type="hidden" name="type" value="BIKE">
+            <% } %>
+
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="message" name="message" class="form-control" placeholder="Issue message here..." required>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-block btn-success">Create issue</button>
+            </div>
+        </form>
+    </div>
+</div>

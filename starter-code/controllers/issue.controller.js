@@ -1,23 +1,65 @@
+const mongoose = require('mongoose');
+const Issue = require('../models/issue.model');
+const Station = require('../models/station.model');
+
 module.exports.show = (req, res, next) => {
-    res.send('ISSUE');
+
+}
+
+module.exports.select = (req, res, next) => {
+    res.render('issue/select');
 }
 
 module.exports.new = (req, res, next) => {
-    res.send('ISSUE');
+    switch(req.params.type) {
+        case 'station':
+            Station.find({})
+                .then(stations => {
+                    res.render('issue/new', {
+                        type: req.params.type,
+                        stations: stations
+                    });
+                })
+                .catch(error => {
+                    next(error);
+                })
+            break;
+        case 'bike':
+            res.render('issue/new', {
+                type: req.params.type
+            });    
+            break;
+        default:
+            res.send("ERROR");
+    }
+
 }
 
 module.exports.doNew = (req, res, next) => {
-    res.send('ISSUE');
+    issue = new Issue({
+        type: req.body.type,
+        referenceId: req.body.referenceId,
+        userId: req.user._id,
+        message: req.body.message
+        // imageUrl: req.body.imageUrl
+    });
+    issue.save()
+        .then(() => {
+            res.send("ISSUE CREATED");
+        })
+        .catch(error => {
+            res.send("ERROR CREATING ISSUE");
+        })
 }
 
 module.exports.edit = (req, res, next) => {
-    res.send('ISSUE');
+    res.send('EDIT');
 }
 
 module.exports.doEdit = (req, res, next) => {
-    res.send('ISSUE');
+    res.send('DOEDIT');
 }
 
 module.exports.delete = (req, res, next) => {
-    res.send('ISSUE');
+    res.send('DELETE');
 }
