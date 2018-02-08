@@ -29,6 +29,7 @@ function initialize() {
                 center: center,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+
             var opt = {
                 "styles" : [
                     {textColor: "black", textSize: 15, height: 60, width: 60},
@@ -40,10 +41,10 @@ function initialize() {
                 "legend": {
                     //"Broke" : "#FF0066",
                     //"Bases" : "#FF9933",
-                    "Bicycles anchored" : "#FFFF00" ,
-                    "Free bases" : "#99FF99",
-                    //"No injuries" : "#66CCFF",
-                    "Reservations" : "#A5A5A5"
+                    //"Bicycles anchored" : "#FFFF00" ,
+                    "no_available" : "#99FF99",
+                    "available" : "#66CCFF",
+                    //"Reservations" : "#A5A5A5"
                 }
             };
             var markers = [];
@@ -52,13 +53,18 @@ function initialize() {
                 var stationLat = stations[i].latitude;
                 var stationLng = stations[i].longitude;
                 var stationLatLng = new google.maps.LatLng(Number(stationLat), Number(stationLng));
+                var no_available = stations[i].no_available;
+                if (no_available = 1) {
+                  no_available = "no_available"
+                } else {
+                  no_available = "available"
+                }
                 var marker = new google.maps.Marker({
-                    position: stationLatLng
+                    position: stationLatLng,
+                    title: no_available
+                    //no_available: no_available
                 });
                 markers.push(marker);
             }
-            var markerCluster = new MarkerClusterer(map, markers, opt);
+            var markerCluster = new MarkerClusterer(map, markers,opt);
         }
-
-        //google.load("visualization", "1", {packages: ["corechart"]});
-        //google.setOnLoadCallback(initialize);
