@@ -25,6 +25,7 @@
                     <li><a href="/login" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Login</button></a></li> 
                     <% } %>
                     <% if(typeof loggedUser !== 'undefined') { %>
+                    <li><a href="/issue/list" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">My issues</button></a></li>     
                     <li><a href="/issue/search" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Search issue</button></a></li>     
                     <li><a href="/issue/new" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Create issue</button></a></li>
                     <li><a href="/logout" class="navbar-right"><button type="button" class="btn btn-danger navbar-btn">Log out</button></a></li>

@@ -114,10 +114,23 @@ module.exports.doEdit = (req, res, next) => {
 
 module.exports.delete = (req, res, next) => {
     Issue.findByIdAndRemove(req.params.id)
-    .then(res.redirect('http://www.marca.com'))
+    .then(res.redirect('issue/list'), {user: req.user})
     .catch((error) => next(error));
 }
 
 module.exports.search = (req, res, next) => {
     res.send('SEARCH');
+}
+
+module.exports.list = (req, res, next) => {
+    console.log(req.user._id);
+    Issue.find({userId: req.user})
+    .then(issues => {
+        console.log(issues);
+        res.render('issue/list', {
+            user: req.user,
+            issues: issues
+        })
+    })
+    .catch(error => next(error))
 }

@@ -7,9 +7,10 @@ router.get('/new', secure.isAuthenticated, issueController.select);
 router.get('/new/:type', secure.isAuthenticated, issueController.new);
 router.post('/new', secure.isAuthenticated, issueController.doNew);
 router.get('/search', secure.isAuthenticated, issueController.search);
+router.get('/list', secure.isAuthenticated, issueController.list);
 router.get('/edit/:id', issueController.edit);
 router.post('/edit/:id', issueController.doEdit);
-router.post('/delete/:id', secure.isMyProfile, issueController.delete);
+router.post('/delete/:id', secure.isMyIssue, issueController.delete);
 router.get('/:id', secure.isAuthenticated, issueController.show);
 
 

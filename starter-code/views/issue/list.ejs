@@ -1,0 +1,26 @@
+<h2>Issues of <%= user.email %></h2>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">type</th>
+            <th scope="col">referenceId</th>
+            <th scope="col">userId</th>
+            <th scope="col">message</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% if(typeof issues != "undefined") { %>
+    <% issues.forEach(issue => { %>
+    <tr>
+        <td><%= issue._id %></td>
+        <td><%= issue.type %></td>
+        <td><%= issue.referenceId %></td>
+        <td><%= issue.userId %></td>
+        <td><%= issue.message %></td>
+    </tr>
+    <% }) %>
+    <% } %>
+    </tbody>
+</table>
