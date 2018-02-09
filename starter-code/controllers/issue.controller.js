@@ -124,15 +124,22 @@ module.exports.delete = (req, res, next) => {
 }
 
 module.exports.search = (req, res, next) => {
-    if(req.body.referenceId != '') {
+    if(req.body.referenceIdBike != '') {
         searchObj = {
             type: "bike",
-            referenceId: req.body.referenceId
+            referenceId: req.body.referenceIdBike
         }
     }
     else {
-        searchObj = {
-            type: "bike",
+        if(req.body.referenceIdStation != '') {
+            searchObj = {
+                type: "station",
+                referenceId: req.body.referenceIdStation
+            }
+        }    
+        else {
+            searchObj = {
+            }
         }
     }
     Issue.find(searchObj)
