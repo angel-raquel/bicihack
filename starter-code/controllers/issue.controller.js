@@ -114,20 +114,41 @@ module.exports.doEdit = (req, res, next) => {
 
 module.exports.delete = (req, res, next) => {
     Issue.findByIdAndRemove(req.params.id)
-    .then(res.redirect('issue/list'), {user: req.user})
+    .then(
+        Issue.find({userId: req.user})
+        .then(issues => {
+            res.redirect('/issue/list');
+        })
+    )
     .catch((error) => next(error));
 }
 
 module.exports.search = (req, res, next) => {
-    res.send('SEARCH');
+    if(req.body.referenceId != '') {
+        searchObj = {
+            type: "bike",
+            referenceId: req.body.referenceId
+        }
+    }
+    else {
+        searchObj = {
+            type: "bike",
+        }
+    }
+    Issue.find(searchObj)
+    .then(issues => {
+        res.render('issue/list', {
+            bike: {referenceId: req.body.referenceId},
+            issues: issues
+        })
+    })
+    .catch(error => next(error))
 }
 
-module.exports.list = (req, res, next) => {
-    console.log(req.user._id);
+module.exports.myIssues = (req, res, next) => {
     Issue.find({userId: req.user})
     .then(issues => {
-        console.log(issues);
-        res.render('issue/list', {
+        res.render('issue/myIssues', {
             user: req.user,
             issues: issues
         })

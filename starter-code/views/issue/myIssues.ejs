@@ -1,4 +1,4 @@
-<h2>Issues of bike number <%= bike.referenceId %></h2>
+<h2>Issues of <%= user.email %></h2>
 <hr>
 <table class="table">
     <thead>
@@ -19,6 +19,12 @@
         <td><%= issue.referenceId %></td>
         <td><%= issue.userId %></td>
         <td><%= issue.message %></td>
+        <td><a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a></td>
+        <td>
+            <form action="/issue/delete/<%= issue._id %>">
+                <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
+            </form> 
+        </td>
     </tr>
     <% }) %>
     <% } %>

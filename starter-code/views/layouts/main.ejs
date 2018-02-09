@@ -15,23 +15,34 @@
                         <img alt="Brand" src="/images/brand.png" width="50px" height="auto">
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="col">
                     <h1>BiciHack</h1>
                 </div>
 
-                <ul class="nav nav-pills">
-                    <% if(typeof loggedUser === 'undefined') { %>
-                    <li><a href="/signup" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Signup</button></a></li> 
-                    <li><a href="/login" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Login</button></a></li> 
-                    <% } %>
-                    <% if(typeof loggedUser !== 'undefined') { %>
-                    <li><a href="/issue/list" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">My issues</button></a></li>     
-                    <li><a href="/issue/search" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Search issue</button></a></li>     
-                    <li><a href="/issue/new" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Create issue</button></a></li>
-                    <li><a href="/logout" class="navbar-right"><button type="button" class="btn btn-danger navbar-btn">Log out</button></a></li>
-                    </li><a href="/user/<%= loggedUser._id %>" class="navbar-right"><h3><%= loggedUser.email %></h3></a>
-                    <% } %>
-                </ul>
+                <div class="col">
+
+                    <ul class="nav nav-pills">
+                        <% if(typeof loggedUser === 'undefined') { %>
+                        <li><a href="/signup" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Signup</button></a></li> 
+                        <li><a href="/login" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Login</button></a></li> 
+                        <% } %>
+                        <% if(typeof loggedUser !== 'undefined') { %>
+                        <li>
+                            <div class="input-group">                             
+                                <form action="/issue/search">
+                                    <input type="number" name="referenceId" class="form-control" placeholder="Bike number...">
+                                    <button type="submit" formmethod="post" class="btn btn-info navbar-btn">Search</button>
+                                </form> 
+                            </div>
+                        </li>     
+                        <li><a href="/issue/myIssues" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">My issues</button></a></li>     
+                        <li><a href="/issue/new" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Create issue</button></a></li>
+                        <li><a href="/logout" class="navbar-right"><button type="button" class="btn btn-danger navbar-btn">Log out</button></a></li>
+                        </li><a href="/user/<%= loggedUser._id %>" class="navbar-right"><h3><%= loggedUser.email %></h3></a>
+                        <% } %>
+                    </ul>
+
+                </div>
 
             </div>
         </nav>
