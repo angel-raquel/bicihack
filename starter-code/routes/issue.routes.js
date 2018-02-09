@@ -1,14 +1,16 @@
 const express = require('express');
 const issueController = require('../controllers/issue.controller');
-const secure = require('../configs/passport.config');
+const secure = require('../middleware/security.middleware');
 const router = express.Router();
 
 router.get('/new', secure.isAuthenticated, issueController.select);
 router.get('/new/:type', secure.isAuthenticated, issueController.new);
 router.post('/new', secure.isAuthenticated, issueController.doNew);
-router.get('/:id', issueController.show);
+router.get('/search', secure.isAuthenticated, issueController.search);
 router.get('/edit/:id', issueController.edit);
 router.post('/edit/:id', issueController.doEdit);
-router.get('/delete/:id', secure.isMe, issueController.delete);
+router.post('/delete/:id', secure.isMyProfile, issueController.delete);
+router.get('/:id', secure.isAuthenticated, issueController.show);
+
 
 module.exports = router;

@@ -1,0 +1,70 @@
+<h2>Edit issue</h2>
+<hr>
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <form action="/issue/edit/<%= issue._id %>" method="POST" id="issue-form">
+
+        <% if(typeof stations != 'undefined') { %>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select name="referenceId">
+                                <% stations.forEach(station => { 
+                                    if(station.id == issue.referenceId) { %>
+                                        <option value="<%= station.id %>" selected><%= station.name %></option>
+                                    <% }
+                                    else { %>
+                                        <option value="<%= station.id %>"><%= station.name %></option>
+                                <%   }
+                                 }) %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="type" value="station">
+        <% }
+            else { %>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="number" name="referenceId" class="form-control" placeholder="Bike reference" value="<%= typeof issue != 'undefined' ? issue.referenceId : '' %>" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="type" value="bike">
+        <% } %>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <textarea rows="4" cols="40" name="message" form="issue-form" placeholder="Enter issue here..."><%= typeof issue != 'undefined' ? issue.message : '' %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-block btn-success">Update</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                <form action="/issue/delete/<%= issue._id %>" method="post">
+                    <button type="submit" class="btn btn-block btn-danger">Delete</button>           
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
