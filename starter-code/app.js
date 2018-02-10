@@ -21,7 +21,7 @@ const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
 const user = require('./routes/user.routes');
 const station = require('./routes/station.routes');
-//const issue = require('./routes/issue.routes');
+const issue = require('./routes/issue.routes');
 
 
 
@@ -63,7 +63,7 @@ app.use('/', index);
 app.use('/', auth);
 app.use('/user', user);
 app.use('/station', station);
-//app.use('/issue', issue);
+app.use('/issue', issue);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
