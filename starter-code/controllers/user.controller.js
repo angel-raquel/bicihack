@@ -23,8 +23,11 @@ module.exports.doEdit = (req, res, next) => {
     User.findOne({email: req.body.email})
         .then(user => {
             if(user != null) {
+                if (req.file) {
+                  user.imageUrl = `/user-avatars/${req.file.filename}`
+                }
                 user.email = req.body.email;
-                user.password = req.body.password;
+                user.password = req.body.password || user.password;
                 user.name = req.body.name;
                 user.cardNumber = req.body.cardNumber;
                 user.save()
