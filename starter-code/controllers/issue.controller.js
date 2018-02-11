@@ -6,7 +6,10 @@ module.exports.show = (req, res, next) => {
     Issue.findById(req.params.id)
     .then(issue => {
         if(issue != null) {
-            res.render('issue/details', {issue});
+            res.render('issue/details', {
+                user: req.user,
+                issue
+            });
         }
     })
     .catch(error => {
