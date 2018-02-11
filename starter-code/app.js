@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public')));
 // Configs
 require('./configs/db.config');
 require('./configs/passport.config').setup(passport);
@@ -22,7 +23,6 @@ const auth = require('./routes/auth.routes');
 const user = require('./routes/user.routes');
 const station = require('./routes/station.routes');
 const issue = require('./routes/issue.routes');
-
 
 
 // view engine setup
@@ -57,7 +57,6 @@ app.use( (req, res, next) => {
   res.locals.loggedUser = req.user;
   next();
 })
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/', auth);
