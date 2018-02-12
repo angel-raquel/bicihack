@@ -148,6 +148,7 @@ module.exports.search = (req, res, next) => {
     Issue.find(searchObj)
     .then(issues => {
         res.render('issue/list', {
+            user: req.user,
             bike: {referenceId: req.body.referenceId},
             issues: issues
         })

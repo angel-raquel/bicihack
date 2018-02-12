@@ -22,7 +22,7 @@
 
         </div>
 
-        <% if( issue.userId.equals(user._id)) { %>
+        <% if( issue.userId.equals(user._id) || user.role == "ADMIN") { %>
         <div class="row">
             <div class="col-md-1">
                 <a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>

@@ -40,3 +40,7 @@ module.exports.doEdit = (req, res, next) => {
             }
         })
 }
+
+module.exports.map = (req, res, next) => {
+    res.render('user/map');
+}
