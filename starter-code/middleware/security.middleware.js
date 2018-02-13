@@ -24,13 +24,13 @@ module.exports.isMyProfile = (req, res, next) => {
     }
 }
 
-// Check if a issue was written by me
-module.exports.isMyIssue = (req, res, next) => {
+// Only can edit issues: owner and ADMIN
+module.exports.canEditIssue = (req, res, next) => {
     Issue.findById(req.params.id)
     .then(issue => {
         if(issue != null) {
             console.log("ISSUE != NULL")
-            if(issue.userId.equals(req.user._id)){
+            if(issue.userId.equals(req.user._id || req.user.role == "ADMIN")){
                 next();
             }
             else {

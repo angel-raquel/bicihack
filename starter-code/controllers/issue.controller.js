@@ -6,7 +6,10 @@ module.exports.show = (req, res, next) => {
     Issue.findById(req.params.id)
     .then(issue => {
         if(issue != null) {
-            res.render('issue/details', {issue});
+            res.render('issue/details', {
+                user: req.user,
+                issue
+            });
         }
     })
     .catch(error => {
@@ -145,6 +148,7 @@ module.exports.search = (req, res, next) => {
     Issue.find(searchObj)
     .then(issues => {
         res.render('issue/list', {
+            user: req.user,
             bike: {referenceId: req.body.referenceId},
             issues: issues
         })

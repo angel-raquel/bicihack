@@ -8,9 +8,9 @@ router.get('/new/:type', secure.isAuthenticated, issueController.new);
 router.post('/new', secure.isAuthenticated, issueController.doNew);
 router.post('/search', secure.isAuthenticated, issueController.search);
 router.get('/myIssues', secure.isAuthenticated, issueController.myIssues);
-router.get('/edit/:id', issueController.edit);
-router.post('/edit/:id', issueController.doEdit);
-router.post('/delete/:id', secure.isMyIssue, issueController.delete);
+router.get('/edit/:id', secure.canEditIssue, issueController.edit);
+router.post('/edit/:id', secure.canEditIssue, issueController.doEdit);
+router.post('/delete/:id', secure.canEditIssue, issueController.delete);
 router.get('/:id', secure.isAuthenticated, issueController.show);
 
 

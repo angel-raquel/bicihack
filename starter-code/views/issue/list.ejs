@@ -19,6 +19,10 @@
         <td><%= issue.referenceId %></td>
         <td><%= issue.userId %></td>
         <td><%= issue.message %></td>
+        <% if( issue.userId.equals(user._id) || user.role == "ADMIN") { %>
+        <td><a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a></td>
+        <td><a href="/issue/delete/<%= issue._id %> %>"><button type="button" class="btn btn-danger navbar-btn">Delete</button></a></td>
+        <% } %>
     </tr>
     <% }) %>
     <% } %>
