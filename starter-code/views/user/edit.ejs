@@ -7,7 +7,7 @@
             <%= flash.info %>
         </div>
         <% } %>
-        <form action="/user/edit/<%= user._id %>" method="POST">
+        <form action="/user/edit/<%= user._id %>" method="POST" enctype="multipart/form-data">
         <div class="form-group <%= typeof error != 'undefined' && error.username ? 'has-error' : '' %>">
             <div class="input-group">
             <span class="input-group-addon">
@@ -64,13 +64,15 @@
         </div>
         <% } %>
 
+        <input type="file" name="avatar" value="">
+
         <div class="form-actions">
             <button type="submit" class="btn btn-block btn-success">Update</button>
         </div>
         </form>
-        
+
         <form action="/user/delete/<%= user._id %>" method="post">
-            <button type="submit" class="btn btn-block btn-danger">Delete</button>           
+            <button type="submit" class="btn btn-block btn-danger">Delete</button>
         </form>
 
     </div>
