@@ -30,7 +30,7 @@ module.exports.canEditIssue = (req, res, next) => {
     .then(issue => {
         if(issue != null) {
             console.log("ISSUE != NULL")
-            if(issue.userId.equals(req.user._id || req.user.role == "ADMIN")){
+            if(issue.userId.equals(req.user._id) || req.user.role == "ADMIN"){
                 next();
             }
             else {
