@@ -24,6 +24,33 @@ function initialize() {
    var markerCluster = new MarkerClusterer(map, displayMarkers(),
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
+    var infoLocation = new google.maps.InfoWindow({map: map});
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+
+        infoLocation.setPosition(pos);
+        infoLocation.setContent(`You're here`);
+        map.setCenter(pos);
+        }, function() {
+        handleLocationError(true, infoLocation, map.getCenter());
+        });
+        // User position
+        var marker = new google.maps.Marker({
+            position: pos,
+            map: map
+          });
+          marker.setMap(map);
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoLocation, map.getCenter());
+    }
+
 }
 //google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -79,4 +106,11 @@ function createMarker(latlng, name, dock_bikes, free_bases, reservations_count){
       infoWindow.open(map, marker);
    });
    return marker
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
 }
