@@ -1,57 +1,50 @@
 <html>
-    <head>
-        <title>bicihack</title>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-            crossorigin="anonymous">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="/stylesheets/style.css"/>
-    </head>
-    <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
-                        <img alt="Brand" src="/images/brand.png" width="50px" height="auto">
-                    </a>
-                </div>
-                <div class="col">
-                    <h1>BiciHack</h1>
-                </div>
+  <head>
+    <title>bicihack</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,700" rel="stylesheet">
 
-                <div class="col">
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/css/animate.css">
+    <link rel="stylesheet" href="/fonts/ionicons/css/ionicons.min.css">
 
-                    <ul class="nav nav-pills">
-                        <% if(typeof loggedUser === 'undefined') { %>
-                        <li><a href="/signup" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Signup</button></a></li>
-                        <li><a href="/login" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">Login</button></a></li>
-                        <% } %>
-                        <% if(typeof loggedUser !== 'undefined') { %>
-                        <li>
-                            <div class="input-group">
-                                <form action="/issue/search">
-                                    <input type="number" name="referenceIdBike" class="form-control" placeholder="Bike number...">
-                                    <input type="number" name="referenceIdStation" class="form-control" placeholder="Station number...">
-                                    <button type="submit" formmethod="post" class="btn btn-info navbar-btn">Search</button>
-                                </form>
-                            </div>
-                        </li>
-                        <li><a href="/issue/myIssues" class="navbar-right"><button type="button" class="btn btn-primary navbar-btn">My issues</button></a></li>
-                        <li><a href="/issue/new" class="navbar-right"><button type="button" class="btn btn-success navbar-btn">Create issue</button></a></li>
-                        <li><a href="/logout" class="navbar-right"><button type="button" class="btn btn-danger navbar-btn">Log out</button></a></li>
-                        </li><a href="/user/<%= loggedUser._id %>" class="navbar-right"><h3><%= loggedUser.email %></h3></a>
-                        <% } %>
-                    </ul>
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
 
-                </div>
+    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
 
-            </div>
-        </nav>
-     <%- body %>
+    <link rel="stylesheet" href="/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/select2.css">
 
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+
+    <link rel="stylesheet" href="/css/helpers.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-white probootstrap_navbar background-nav" id="probootstrap-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="/"><img alt="Brand" src="/images/brand.png" width="50px" height="auto">bicihack</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <span><i class="ion-navicon"></i></span>
+        </button>
+        <div class="collapse navbar-collapse" id="probootstrap-menu">
+          <ul class="navbar-nav ml-auto">
+            <% if(typeof loggedUser === 'undefined') { %>
+            <li class="nav-item active"><a class="nav-link" href="/signup">Sign up</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+            <% } %>
+            <% if(typeof loggedUser !== 'undefined') { %>
+            <li class="nav-item"><a class="nav-link" href="/issue/myIssues">My issues</a></li>
+            <li class="nav-item"><a class="nav-link" href="/issue/new">Create issue</a></li>
+            <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+ <%- body %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    </body>
+  </body>
 </html>
