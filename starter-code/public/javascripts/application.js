@@ -43,25 +43,26 @@ function initialize() {
         var size = map.zoom * 5;
         var sizepx = size+"px";
 
-        markers.push(
-            new CustomMarker(
-                {             
-                    map: map,
-                    position: position,  
-                    width: sizepx,
-                    height: sizepx,
-                    chartData: data,
-                    chartOptions: options
-                }
-            )
-        );
+        var customMarker = new CustomMarker(
+            {             
+                map: map,
+                position: position,  
+                width: sizepx,
+                height: sizepx,
+                chartData: data,
+                chartOptions: options
+            }
+        )
 
+        markers.push(customMarker);
+       
         // var name = stations[i].name;
         // var dock_bikes = stations[i].dock_bikes;
         // var free_bases = stations[i].free_bases;
         // var reservations_count = stations[i].reservations_count;
     }
 
+    // to cluster our CustomMarkers
     var markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
