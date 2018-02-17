@@ -28,10 +28,6 @@
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
           <ul class="navbar-nav ml-auto">
-            <% if(typeof loggedUser === 'undefined') { %>
-            <li class="nav-item active"><a class="nav-link" href="/signup">Sign up</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-            <% } %>
             <% if(typeof loggedUser !== 'undefined') { %>
             <li class="nav-item"><a class="nav-link" href="/issue/myIssues">My issues</a></li>
             <li class="nav-item"><a class="nav-link" href="/issue/new">Create issue</a></li>
