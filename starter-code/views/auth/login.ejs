@@ -1,7 +1,19 @@
-<h2>Login</h2>
-<hr>
-<div class="row">
-    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+
+<section>
+  <div id="map">
+</section>
+<% if(typeof loggedUser === 'undefined') { %>
+<section class="probootstrap-cover relative col-md-4">
+
+  <div class="form-wrap">
+  <div class="tabs">
+    <h6 class="login-tab"><a class="active" href="/">Login</a></h6>
+    <h6 class="signup-tab"><a href="/signup">Sign Up</a></h6>
+  </div>
+  <!--.tabs-->
+
+  <div class="tabs-content">
+    <div id="login-tab-content" class="active">
       <% if (typeof(flash) !== 'undefined' && flash.info) { %>
         <div class="alert alert-info">
           <%= flash.info %>
@@ -19,7 +31,7 @@
             <label class="control-label"> <%= error.email %> </label>
           <% } %>
         </div>
-  
+
         <div class="form-group <%= typeof error != 'undefined' && error.password ? 'has-error' : '' %>">
           <div class="input-group">
             <span class="input-group-addon">
@@ -31,19 +43,19 @@
             <label class="control-label"><%= error.password %></label>
           <% } %>
         </div>
-  
+
         <div class="form-actions">
           <button type="submit" class="btn btn-block btn-primary">Login</button>
         </div>
       </form>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-      <hr>
-      <div class="panel panel-default">
-        <div class="panel-heading text-center">
-          Dont't have an account?
-          <a href="/signup">Sign up </a>
-        </div>
-      </div>
-    </div>
+  </div>
+  <!--.tabs-content-->
 </div>
+<!--.form-wrap-->
+</section>
+<% } %>
+  <script src="/javascripts/station_seeds.json"></script>
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+  <script src="/javascripts/application.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE&callback=initialize"></script>
