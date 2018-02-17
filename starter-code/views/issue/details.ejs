@@ -1,38 +1,38 @@
-<h2>Issue details</h2>
-<hr>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">details of issue: <%= issue._id %></h2>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-1">
-                <img src="<%= issue.imageUrl %>" alt="<%= issue.imageUrl %>" width="100px" height="100px">
-            </div>
-
-            <div class="col-md-4">
-                <ul>
-                    <li>ID: <%= issue._id %></li>
-                    <li>TYPE: <%= issue.type %></li>
-                    <li>REFERENCEID: <%= issue.referenceId %></li>
-                    <li>USERID: <%= issue.userId %></li>
-                    <li>MESSAGE: <%= issue.message %></li>
-                </ul>
-            </div>
-
+<section class="probootstrap-cover relative background-grey">
+  <div class="container">
+    <div class="row reduce-margin-bottop">
+      <div class=" align-items-center text-center col-md">
+        <h1 class="border-bottom">Issue details</h1>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">details of issue: <%= issue._id %></h3>
         </div>
-
-        <% if( issue.userId.equals(user._id) || user.role == "ADMIN") { %>
-        <div class="row">
+        <div class="panel-body">
+          <div class="row">
+            <!--
             <div class="col-md-1">
-                <a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+              <img src="<%= issue.imageUrl %>" alt="<%= issue.imageUrl %>" width="100px" height="100px">
             </div>
-            <div class="col-md-1">
-                <form action="/issue/delete/<%= issue._id %>">
-                    <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
-                </form>
+            -->
+            <div>
+              <ul>
+                <li>ID: <%= issue._id %></li>
+                <li>TYPE: <%= issue.type %></li>
+                <li>REFERENCEID: <%= issue.referenceId %></li>
+                <li>USERID: <%= issue.userId %></li>
+                <li>MESSAGE: <%= issue.message %></li>
+              </ul>
             </div>
+          </div>
+          <% if( issue.userId.equals(user._id) || user.role == "ADMIN") { %>
+            <div class="row">
+              <a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+              <a class="delete-margin" href="/issue/delete/<%= issue._id %>"><button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button></a>
+            </div>
+          <% } %>
         </div>
-        <% } %>
+      </div>
     </div>
-</div>
+  </div>
+</section>
