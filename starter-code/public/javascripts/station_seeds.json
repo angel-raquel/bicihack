@@ -12,7 +12,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 8,
     "free_bases": 12,
-    "reservations_count": 0
+    "reservations_count": 4
 }, {
     "id": 2,
     "latitude": "40.4170009",
@@ -40,7 +40,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 0,
     "free_bases": 23,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 4,
     "latitude": "40.4302937",
@@ -54,7 +54,7 @@ var stations = [
     "total_bases": 18,
     "dock_bikes": 8,
     "free_bases": 9,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 5,
     "latitude": "40.4285524",
@@ -82,7 +82,7 @@ var stations = [
     "total_bases": 27,
     "dock_bikes": 19,
     "free_bases": 7,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 7,
     "latitude": "40.4241480",
@@ -96,7 +96,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 3,
     "free_bases": 18,
-    "reservations_count": 0
+    "reservations_count": 3
 }, {
     "id": 8,
     "latitude": "40.4251906",
@@ -110,7 +110,7 @@ var stations = [
     "total_bases": 21,
     "dock_bikes": 6,
     "free_bases": 12,
-    "reservations_count": 0
+    "reservations_count": 3
 }, {
     "id": 9,
     "latitude": "40.4278682",
@@ -194,7 +194,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 5,
     "free_bases": 18,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 15,
     "latitude": "40.4260957",
@@ -222,7 +222,7 @@ var stations = [
     "total_bases": 21,
     "dock_bikes": 2,
     "free_bases": 13,
-    "reservations_count": 0
+    "reservations_count": 6
 }, {
     "id": 17,
     "latitude": "40.4230721",
@@ -236,7 +236,7 @@ var stations = [
     "total_bases": 21,
     "dock_bikes": 12,
     "free_bases": 8,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 18,
     "latitude": "40.4232649",
@@ -264,7 +264,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 1,
     "free_bases": 22,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 20,
     "latitude": "40.4218616",
@@ -292,7 +292,7 @@ var stations = [
     "total_bases": 24,
     "dock_bikes": 13,
     "free_bases": 10,
-    "reservations_count": 0
+    "reservations_count": 1
 }, {
     "id": 23,
     "latitude": "40.4197872",

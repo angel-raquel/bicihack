@@ -10,10 +10,10 @@ function initialize() {
     
     var options = {
         //title: 'Station info',
-        fontSize: 8,
+        fontSize: 10,
         backgroundColor: 'transparent',
         pieHole: 0.4,
-        colors: ['#00cc00', '#0000ff', '#ff0000'],
+        colors: ['#00cc00', '#0000ff', '#ff0000', '#808080'],
         legend: 'none'
     };
 
@@ -21,32 +21,48 @@ function initialize() {
 
     for (var i = 0; i < stations.length; i++){
         var position = new google.maps.LatLng(stations[i].latitude, stations[i].longitude);
+        if(stations[i].activate === 0 || stations[i].no_available === 1) {
+            var freeBikes = 0;
+            var docks = 0;
+            var reservedBikes = 0;
+            var offline = 1; 
+        }
+        else {
+            var freeBikes = stations[i].dock_bikes;
+            var docks = stations[i].free_bases;
+            var reservedBikes = stations[i].reservations_count;
+            var offline = 0;
+        }
         var data = google.visualization.arrayToDataTable([
             ['parameter', 'value'],
-            ['bikes', stations[i].dock_bikes],
-            ['docks', stations[i].free_bases],
-            ['reservations', stations[i].reservations_count]
+            ['bikes', freeBikes],
+            ['docks', docks],
+            ['reservations', reservedBikes],
+            ['offline', offline]
         ]);
-        
-        markers.push(
-            new CustomMarker(
-                {             
-                    map: map,
-                    position: position,  
-                    width: '50px',
-                    height: '50px',
-                    chartData: data,
-                    chartOptions: options
-                }
-            )
-        );
+        var size = map.zoom * 5;
+        var sizepx = size+"px";
 
+        var customMarker = new CustomMarker(
+            {             
+                map: map,
+                position: position,  
+                width: sizepx,
+                height: sizepx,
+                chartData: data,
+                chartOptions: options
+            }
+        )
+
+        markers.push(customMarker);
+       
         // var name = stations[i].name;
         // var dock_bikes = stations[i].dock_bikes;
         // var free_bases = stations[i].free_bases;
         // var reservations_count = stations[i].reservations_count;
     }
 
+    // to cluster our CustomMarkers
     var markerCluster = new MarkerClusterer(map, markers,
         {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
