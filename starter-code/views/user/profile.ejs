@@ -1,56 +1,41 @@
-<h2>User profile</h2>
-<hr>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">profile of user: <%= user.email %></h2>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-1">
-                <img src="<%= user.imageUrl %>" alt="<%= user.imageUrl %>" width="100px" height="100px">
-            </div>
-
-            <div class="col-md-4">
-                <ul>
-                    <li>ID: <%= user._id %></li>
-                    <li>EMAIL: <%= user.email %></li>
-                    <li>NAME: <%= user.name %></li>
-                    <li>CARDNUMBER: <%= user.cardNumber %></li>
-                    <li>ROLE: <%= user.role %></li>
-                </ul>
-            </div>
-
+<section>
+  <div id="map"></div>
+</section>
+<section class="probootstrap-cover relative col-md-4">
+  <div class="form-wrap">
+    <div class="panel">
+      <img class="img-fluid" src="<%= user.imageUrl %>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%= user.name %></h5>
+        <ul>
+          <li class="small">EMAIL: <%= user.email %></li>
+          <li class="small">NAME: <%= user.name %></li>
+          <li class="small">CARD NUMBER: <%= user.cardNumber %></li>
+        </ul>
+        <div class="card-group">
+          <div class="">
+            <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+          </div>
+          <div class="delete-margin">
+            <form action="/user/delete/<%= user._id %>">
+              <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
+            </form>
+          </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-1">
-                <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
-            </div>
-            <div class="col-md-1">
-                <form action="/user/delete/<%= user._id %>">
-                    <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
-                </form>
-            </div>
-        </div>
-
+      </div>
     </div>
+  </div>
+</section>
 
-    <div id="map"></div>
-    <script src="/javascripts/station_seeds.json"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE">
-    </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {packages: ['corechart']});
-    </script>
-    <script type="text/javascript" src="/javascripts/CustomMarker.js"></script>
-    <script type="text/javascript" src="/javascripts/profile.map.js"></script>
-
-
-</div>
-
-
+<script src="/javascripts/station_seeds.json"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE">
+</script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {packages: ['corechart']});
+</script>
+<script type="text/javascript" src="/javascripts/CustomMarker.js"></script>
+<script type="text/javascript" src="/javascripts/profile.map.js"></script>

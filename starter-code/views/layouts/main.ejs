@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/css/select2.css">
 
-
     <link rel="stylesheet" href="/css/helpers.css">
     <link rel="stylesheet" href="/css/style.css">
   </head>
@@ -29,18 +28,19 @@
         <div class="collapse navbar-collapse" id="probootstrap-menu">
           <ul class="navbar-nav ml-auto">
             <% if(typeof loggedUser !== 'undefined') { %>
-            <li class="nav-item"><a class="nav-link" href="/issue/myIssues">My issues</a></li>
-            <li class="nav-item"><a class="nav-link" href="/issue/new">Create issue</a></li>
-            <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+              <li class="nav-item"><a class="nav-link" href="/user/<%= loggedUser._id %>">My profile</a></li>
+              <li class="nav-item"><a class="nav-link" href="/issue/myIssues">My issues</a></li>
+              <li class="nav-item"><a class="nav-link" href="/issue/new">Create issue</a></li>
+              <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
             <% } %>
           </ul>
         </div>
       </div>
     </nav>
 
+    <%- body %>
 
- <%- body %>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   </body>
 </html>

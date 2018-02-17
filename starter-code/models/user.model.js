@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
     imageUrl: {
         type: String,
-        //match: [/(\w*\W*)?\w*(\.(\w)+)+(\W\d+)?(\/\w*(\W*\w)*)*/, 'Please insert a valid url'] 
+        //match: [/(\w*\W*)?\w*(\.(\w)+)+(\W\d+)?(\/\w*(\W*\w)*)*/, 'Please insert a valid url']
         default: '/images/user.png'
     }
 }, { timestamps: true} );
@@ -63,10 +63,10 @@ userSchema.pre('save', function(next) {
 userSchema.methods.checkPassword = function(password) {
     return bcrypt.compare(password, this.password);
 }
-    
+
 userSchema.methods.isAdmin = function() {
     return this.role === ADMIN_ROLE;
-} 
+}
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

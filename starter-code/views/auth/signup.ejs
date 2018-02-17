@@ -1,76 +1,77 @@
 <section>
   <div id="map">
 </section>
-
 <% if(typeof loggedUser === 'undefined') { %>
-<section class="probootstrap-cover relative col-md-4">
-
-  <div class="form-wrap">
-  <div class="tabs">
-    <h6 class="login-tab"><a href="/">Login</a></h6>
-    <h6 class="signup-tab"><a class="active" href="/signup">Sign Up</a></h6>
-  </div>
-  <!--.tabs-->
-
-  <div class="tabs-content">
-			<div id="signup-tab-content" class="active">
-        <% if (typeof(error) != 'undefined' && error.email) { %>
+  <section class="probootstrap-cover relative col-md-4">
+    <div class="form-wrap">
+      <div class="tabs">
+        <h6 class="login-tab"><a href="/">Login</a></h6>
+        <h6 class="signup-tab"><a class="active" href="/signup">Sign Up</a></h6>
+      </div>
+      <!--.tabs-->
+      <div class="tabs-content">
+        <div id="signup-tab-content" class="active">
+          <% if (typeof(error) != 'undefined' && error.email) { %>
             <label class="control-label">
-                <%= error.email %>
+              <%= error.email %>
             </label>
-            <% } %>
-				<form class="signup-form" action="/signup" method="post">
-          <div class="form-group <%= typeof error != 'undefined' && error.email ? 'has-error' : '' %>">
+          <% } %>
+          <form class="signup-form" action="/signup" method="post">
+            <div class="form-group <%= typeof error != 'undefined' && error.email ? 'has-error' : '' %>">
               <div class="input-group">
-                  <span class="input-group-addon">
-                      <i class="fa fa-at"></i>
-                  </span>
-                  <input type="email" name="email" class="form-control" placeholder="Email" value="<%= typeof user != 'undefined' && user.email ? user.email : '' %>" required>
+                <span class="input-group-addon">
+                  <i class="fa fa-at"></i>
+                </span>
+                <input type="email" name="email" class="form-control" placeholder="Email" value="<%= typeof user != 'undefined' && user.email ? user.email : '' %>" required>
               </div>
               <% if (typeof(error) != 'undefined' && error.email) { %>
-                  <label class="control-label">
-                      <%= error.email %>
-                  </label>
-                  <% } %>
-          </div>
-
-          <div class="form-group <%= typeof error != 'undefined' && error.password ? 'has-error' : '' %>">
+              <label class="control-label">
+                <%= error.email %>
+              </label>
+              <% } %>
+            </div>
+            <div class="form-group <%= typeof error != 'undefined' && error.password ? 'has-error' : '' %>">
               <div class="input-group">
-                  <span class="input-group-addon">
-                      <i class="fa fa-lock"></i>
-                  </span>
-                  <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <span class="input-group-addon">
+                  <i class="fa fa-lock"></i>
+                </span>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
               </div>
               <% if (typeof(error) != 'undefined' && error.password) { %>
-                  <label class="control-label">
-                      <%= error.password %>
-                  </label>
-                  <% } %>
-          </div>
-
-          <div class="form-group">
+              <label class="control-label">
+                <%= error.password %>
+              </label>
+              <% } %>
+            </div>
+            <div class="form-group">
               <div class="input-group">
-                  <input type="text" name="name" class="form-control" placeholder="Name">
+                <input type="text" name="name" class="form-control" placeholder="Name">
               </div>
-          </div>
-
-          <div class="form-group">
+            </div>
+            <div class="form-group">
               <div class="input-group">
-                  <input type="number" name="cardNumber" class="form-control" placeholder="Card number">
+                <input type="number" name="cardNumber" class="form-control" placeholder="Card number">
               </div>
-          </div> 
-
-          <div class="form-actions">
+            </div>
+            <div class="form-actions">
               <button type="submit" class="btn btn-block btn-primary">Signup</button>
-          </div>
-				</form>
-			</div>
-</div>
-</section>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 <% } %>
 
 <script src="/javascripts/station_seeds.json"></script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script src="/javascripts/application.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE&callback=initialize"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE">
+</script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart']});
+</script>
+<script type="text/javascript" src="/javascripts/CustomMarker.js"></script>
+<script type="text/javascript" src="/javascripts/profile.map.js"></script>
