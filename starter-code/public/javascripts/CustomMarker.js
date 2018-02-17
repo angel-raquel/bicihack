@@ -1,6 +1,7 @@
 function CustomMarker(options) {
     this.latlng = options.position;
     this.map_ = options.map;
+    this.zoomOld = this.map_.zoom;
 	//this.args = args;	
     //this.setMap(options.map);	
     
@@ -26,6 +27,10 @@ function CustomMarker(options) {
 CustomMarker.prototype = new google.maps.OverlayView();
 
 CustomMarker.prototype.draw = function() {
+    var zoomFactor = this.map_.zoom
+    var size = this.map_.zoom * 5;
+    var sizepx = size+"px";
+
     var projection = this.getProjection();
     var position = projection.fromLatLngToDivPixel( this.get('position') );
 
@@ -35,8 +40,16 @@ CustomMarker.prototype.draw = function() {
         opacity: 1,
         display: 'block'
     })
-      
-    if (this.chart) return;
+
+    this.$inner.css({
+        // background: 'yellow',
+        width: this.resizeChart(),
+        height: this.resizeChart()
+    });
+
+    if (this.chart && this.zoomNotChanged()) {
+        return;
+    }
 
     this.chart = new google.visualization.PieChart( this.$inner[0] );
     this.chart.draw( this.get('chartData'), this.get('chartOptions') );
@@ -65,6 +78,27 @@ CustomMarker.prototype.onRemove = function() {
     this.$div.remove();
 };
 
-CustomMarker.prototype.changeOptions = function(options) {
-    this.setValues( options );
-}
+CustomMarker.prototype.resizeChart = function() {
+    // base = 40px
+    var base = 40;
+    // increments by 20px
+    var increment = 20;
+    var zoomArray = [14,15,16,17,18,19,20,21,22];
+
+    var index = zoomArray.indexOf(this.map_.zoom);
+    var resizeValue = base + (index * increment);
+    // console.log("ZOOM: " + this.map_.zoom);
+    // console.log("INDEX: " + index);
+    return `${resizeValue}px`
+
+};
+
+CustomMarker.prototype.zoomNotChanged= function() {
+    if (this.zoomOld === this.map_.zoom) {
+        return true
+    }
+    else {
+        this.zoomOld = this.map_.zoom;
+        return false;
+    }
+};

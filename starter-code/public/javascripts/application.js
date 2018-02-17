@@ -10,7 +10,7 @@ function initialize() {
     
     var options = {
         //title: 'Station info',
-        fontSize: 8,
+        fontSize: 10,
         backgroundColor: 'transparent',
         pieHole: 0.4,
         colors: ['#00cc00', '#0000ff', '#ff0000'],
@@ -27,14 +27,16 @@ function initialize() {
             ['docks', stations[i].free_bases],
             ['reservations', stations[i].reservations_count]
         ]);
-        
+        var size = map.zoom * 5;
+        var sizepx = size+"px";
+
         markers.push(
             new CustomMarker(
                 {             
                     map: map,
                     position: position,  
-                    width: '50px',
-                    height: '50px',
+                    width: sizepx,
+                    height: sizepx,
                     chartData: data,
                     chartOptions: options
                 }
