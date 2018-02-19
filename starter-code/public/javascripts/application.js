@@ -3,7 +3,14 @@ function initialize() {
 	var mapOptions = {
 		zoom: 14,
         center: new google.maps.LatLng(40.415451988566375,356.29836363220215),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
+        fullscreenControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_BOTTOM
+        }
     }
     
     var directionsService = new google.maps.DirectionsService;
