@@ -52,6 +52,22 @@ CustomMarker.prototype.draw = function() {
 
     this.chart = new google.visualization.PieChart( this.inner_[0] );
     this.chart.draw( this.get('chartData'), this.get('chartOptions') );
+    this.chart.setAction({
+        id: '1',
+        text: 'Show info',
+        action: function() {
+            alert("SHOW STATION INFO");
+            //chart.draw(data, options);
+        }
+    });
+    this.chart.setAction({
+        id: '2',
+        text: 'Create issue',
+        action: function() {
+            window.location.replace("issue/new");
+            //chart.draw(data, options);
+        }
+    });
 };
 
 CustomMarker.prototype.remove = function() {
@@ -71,16 +87,6 @@ CustomMarker.prototype.setVisible = function(visible) {
 
 CustomMarker.prototype.onAdd = function() {    
     $( this.getPanes().overlayMouseTarget ).append( this.div_ );
-    
-    var self = this;
-    google.maps.event.addDomListener(this.div_ , 'click', function(event) {
-        console.log("EVENT");
-        // stop click reaction on another layers
-        event.stopPropagation();
-
-        // add also event to 3rd parameter for catching
-        google.maps.event.trigger(self, 'click', event); 
-    });
 };
 
 CustomMarker.prototype.onRemove = function() {
@@ -140,3 +146,9 @@ CustomMarker.prototype.toggle = function() {
 CustomMarker.prototype.printMsg = function() {
     console.log("PRINTMSG");
 }
+
+CustomMarker.prototype.addClickEvent = function() { 
+    google.maps.event.addDomListener($(this.div_), 'click', function() { 
+        alert("you clicked!"); 
+    }); 
+} 

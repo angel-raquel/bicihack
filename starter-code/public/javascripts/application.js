@@ -24,8 +24,16 @@ function initialize() {
         //title: 'Station info',
         fontSize: 10,
         backgroundColor: 'transparent',
+        //is3D: true,
         pieHole: 0.4,
         colors: ['#00cc00', '#0000ff', '#ff0000', '#808080'],
+        tooltip: { 
+            trigger: 'selection',
+            ignoreBounds: true,
+            isHtml: true,
+            text: 'value'
+        },
+        
         legend: 'none'
     };
 
@@ -45,6 +53,7 @@ function initialize() {
             var reservedBikes = stations[i].reservations_count;
             var offline = 0;
         }
+
         var data = google.visualization.arrayToDataTable([
             ['parameter', 'value'],
             ['bikes', freeBikes],
@@ -52,6 +61,7 @@ function initialize() {
             ['reservations', reservedBikes],
             ['offline', offline]
         ]);
+
         var size = map.zoom * 5;
         var sizepx = size+"px";
 
@@ -67,7 +77,7 @@ function initialize() {
         )
 
         markers.push(customMarker);
-       
+
         // var name = stations[i].name;
         // var dock_bikes = stations[i].dock_bikes;
         // var free_bases = stations[i].free_bases;
