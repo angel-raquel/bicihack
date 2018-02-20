@@ -1,15 +1,14 @@
 <section>
   <div id="map"></div>
 </section>
-<section class="probootstrap-cover relative col-md-4">
-  <div class="form-wrap">
+<section class="probootstrap-cover col-md-4">
+  <div class="form-wrap delete-margin-bottom">
     <div class="panel">
       <img class="img-fluid" src="<%= user.imageUrl %>" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><%= user.name %></h5>
         <ul>
           <li class="small">EMAIL: <%= user.email %></li>
-          <li class="small">NAME: <%= user.name %></li>
           <li class="small">CARD NUMBER: <%= user.cardNumber %></li>
         </ul>
         <div class="card-group">
@@ -26,6 +25,7 @@
     </div>
   </div>
 </section>
+
 
 <script src="/javascripts/station_seeds.json"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
