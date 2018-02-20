@@ -1,32 +1,40 @@
-<h2>Issues of <%= user.email %></h2>
-<hr>
-<table class="table">
-    <thead>
-        <tr>
+<section class="probootstrap-cover relative background-grey">
+  <div class="container">
+    <div class="row align-items-center text-center reduce-margin-bottop">
+      <div class="col-md">
+        <h1 class="border-bottom">Issues of <%= user.name %></h1>
+      </div>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
             <th scope="col">id</th>
             <th scope="col">type</th>
             <th scope="col">referenceId</th>
             <th scope="col">userId</th>
             <th scope="col">message</th>
-        </tr>
-    </thead>
-    <tbody>
-    <% if(typeof issues != "undefined") { %>
-    <% issues.forEach(issue => { %>
-    <tr>
-        <td><a href="/issue/<%= issue._id %>"><%= issue._id %></a></td>
-        <td><%= issue.type %></td>
-        <td><%= issue.referenceId %></td>
-        <td><%= issue.userId %></td>
-        <td><%= issue.message %></td>
-        <td><a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a></td>
-        <td>
-            <form action="/issue/delete/<%= issue._id %>">
-                <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
-            </form> 
-        </td>
-    </tr>
-    <% }) %>
-    <% } %>
-    </tbody>
-</table>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(typeof issues != "undefined") { %>
+            <% issues.forEach(issue => { %>
+              <tr>
+                <td><a href="/issue/<%= issue._id %>"><%= issue._id %></a></td>
+                <td><%= issue.type %></td>
+                <td><%= issue.referenceId %></td>
+                <td><%= issue.userId %></td>
+                <td><%= issue.message %></td>
+                <td><a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a></td>
+                <td>
+                  <form action="/issue/delete/<%= issue._id %>">
+                    <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

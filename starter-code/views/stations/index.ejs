@@ -1,13 +1,17 @@
+<section class="probootstrap-cover relative background-grey">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col-md">
+        <h1 class="border-bottom">The stations</h1>
+      </div>
+      <hr>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">id</th>
-      <th scope="col">lat</th>
-      <th scope="col">long</th>
       <th scope="col">name</th>
       <th scope="col">light</th>
       <th scope="col">number</th>
-      <th scope="col">address</th>
       <th scope="col">activate</th>
       <th scope="col">no_available</th>
       <th scope="col">total_bases</th>
@@ -21,12 +25,9 @@
 <% stations.forEach(station => { %>
   <tr>
     <td><%= station.id %></td>
-    <td><%= station.latitude %></td>
-    <td><%= station.longitude %></td>
     <td><%= station.name %></td>
     <td><%= station.light %></td>
     <td><%= station.number %></td>
-    <td><%= station.address %></td>
     <td><%= station.activate %></td>
     <td><%= station.no_available %></td>
     <td><%= station.total_bases %></td>
@@ -38,3 +39,6 @@
 <% } %>
   </tbody>
 </table>
+</div>
+</div>
+</section>

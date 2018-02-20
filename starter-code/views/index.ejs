@@ -1,70 +1,78 @@
-
 <section>
-  <div id="map">
+  <div id="map"></div>
 </section>
 <% if(typeof loggedUser === 'undefined') { %>
-<section class="probootstrap-cover relative col-md-4">
-
-  <div class="form-wrap">
-  <div class="tabs">
-    <h6 class="login-tab"><a class="active" href="/">Login</a></h6>
-    <h6 class="signup-tab"><a href="/signup">Sign Up</a></h6>
-  </div>
-  <!--.tabs-->
-
-  <div class="tabs-content">
-    <div id="login-tab-content" class="active">
-      <% if (typeof(flash) !== 'undefined' && flash.info) { %>
-        <div class="alert alert-info">
-          <%= flash.info %>
-        </div>
-      <% } %>
-      <form action="/login" method="POST">
-        <div class="form-group <%= typeof error != 'undefined' && error.email ? 'has-error' : '' %>">
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-at"></i>
-            </span>
-            <input type="email" name="email" class="form-control" placeholder="Email" value="<%= typeof user != 'undefined' && user.email ? user.email : '' %>">
-          </div>
-          <% if (typeof(error) != 'undefined' && error.email) { %>
-            <label class="control-label"> <%= error.email %> </label>
+  <section class="probootstrap-cover relative col-md-4">
+    <div class="form-wrap">
+      <div class="tabs">
+        <h6 class="login-tab"><a class="active" href="/">Login</a></h6>
+        <h6 class="signup-tab"><a href="/signup">Sign Up</a></h6>
+      </div>
+      <div class="tabs-content">
+        <div id="login-tab-content" class="active">
+          <% if (typeof(flash) !== 'undefined' && flash.info) { %>
+            <div class="alert alert-info">
+              <%= flash.info %>
+            </div>
           <% } %>
+          <form action="/login" method="POST">
+            <div class="form-group <%= typeof error != 'undefined' && error.email ? 'has-error' : '' %>">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-at"></i>
+                </span>
+                <input type="email" name="email" class="form-control" placeholder="Email" value="<%= typeof user != 'undefined' && user.email ? user.email : '' %>">
+              </div>
+              <% if (typeof(error) != 'undefined' && error.email) { %>
+                <label class="control-label"> <%= error.email %> </label>
+              <% } %>
+            </div>
+            <div class="form-group <%= typeof error != 'undefined' && error.password ? 'has-error' : '' %>">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-lock"></i>
+                </span>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+              </div>
+              <% if (typeof(error) != 'undefined' && error.password) { %>
+                <label class="control-label"><%= error.password %></label>
+              <% } %>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-block btn-primary">Login</button>
+            </div>
+          </form>
         </div>
-
         <div class="form-group <%= typeof error != 'undefined' && error.password ? 'has-error' : '' %>">
           <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-lock"></i>
-            </span>
-            <input type="password" name="password" class="form-control" placeholder="Password">
+          <span class="input-group-addon">
+            <i class="fa fa-lock"></i>
+          </span>
+          <input type="password" name="password" class="form-control" placeholder="Password">
           </div>
           <% if (typeof(error) != 'undefined' && error.password) { %>
             <label class="control-label"><%= error.password %></label>
           <% } %>
         </div>
-
         <div class="form-actions">
           <button type="submit" class="btn btn-block btn-primary">Login</button>
         </div>
-      </form>
-  </div>
-  <!--.tabs-content-->
-</div>
-<!--.form-wrap-->
-</section>
+        </form>
+      </div>
+    </div>
+  </section>
 <% } 
    else { %>
-<script>
-  window.loggedUser = true
-</script>
+  <script>
+    window.loggedUser = true
+  </script>
 <% } %>
+
 <script src="/javascripts/station_seeds.json"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ESQGMZa8GDXZrIg826Xo9Rh9QI34SGE">
 </script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
