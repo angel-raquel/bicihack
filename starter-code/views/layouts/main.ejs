@@ -13,7 +13,7 @@
       <div class="container">
         <a class="navbar-brand" href="/"><img alt="Brand" src="/images/brand.png" width="50px" height="auto">bicihack</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#probootstrap-menu" aria-controls="probootstrap-menu" aria-expanded="false" aria-label="Toggle navigation">
-          <span><i class="ion-navicon"></i></span>
+          <% if(typeof loggedUser !== 'undefined') { %><span><i class="ion-navicon"></i></span><% } %>
         </button>
         <div class="collapse navbar-collapse" id="probootstrap-menu">
           <ul class="navbar-nav ml-auto">
