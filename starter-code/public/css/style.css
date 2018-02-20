@@ -519,8 +519,8 @@ a {
       font-size: 14px; }
 
 /* Profile */
-.delete-margin {
-  margin-left: 1.25rem;
+.add-margin {
+  margin-right: 1.25rem;
 }
 .delete-margin-bottom{
   margin-bottom: -3rem;
