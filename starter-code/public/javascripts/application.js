@@ -1,7 +1,7 @@
 function initialize() {
     // First async get to verify if user is logged
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", '/isLogged', true );
+    xmlHttp.open( "POST", '/isLogged', true );
     xmlHttp.send( null );
 	
 	var mapOptions = {
