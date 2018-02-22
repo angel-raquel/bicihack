@@ -82,7 +82,7 @@ module.exports.logout = (req, res, next) => {
 module.exports.isLogged = (req, res, next) => {
     if (req.isAuthenticated()) {
         res.status(200)
-        res.send(req.user);
+        res.send(null);
     } else {
         res.status(403)
         res.send(null);
