@@ -13,9 +13,8 @@ var schedule = require('node-schedule');
 
 // Schedule API GET to Bicimad and update mongodb each 15 minutes
 const bicimad = require('./configs/bicimad')
-var schedule = schedule.scheduleJob('*/1 * * * *', function(){
+var schedule = schedule.scheduleJob('*/15 * * * *', function(){
   bicimad.getBicimadStations();
-  console.log("SCHEDULE");
 });
 
 const app = express();
