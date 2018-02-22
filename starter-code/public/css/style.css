@@ -519,8 +519,8 @@ a {
       font-size: 14px; }
 
 /* Profile */
-.delete-margin {
-  margin-left: 1.25rem;
+.add-margin {
+  margin-right: 1.25rem;
 }
 .delete-margin-bottom{
   margin-bottom: -3rem;
@@ -548,4 +548,21 @@ font-family: "Work Sans", Arial, sans-serif;
 .reduce-margin-bottop{
   margin-top: -3rem;
   margin-bottom: -5rem;
+}
+
+.background-error{
+  background-color: #daaf1e;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.message-error {
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.text-white{
+  color: #fff;
 }

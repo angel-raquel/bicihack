@@ -12,10 +12,10 @@
           <li class="small">CARD NUMBER: <%= user.cardNumber %></li>
         </ul>
         <div class="card-group">
-          <div class="">
+          <div class="add-margin">
             <a href="/user/edit/<%= user._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
           </div>
-          <div class="delete-margin">
+          <div>
             <form action="/user/delete/<%= user._id %>">
               <button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button>
             </form>

@@ -1,6 +1,6 @@
 <section class="probootstrap-cover relative background-grey">
   <div class="container">
-    <div class="row align-items-center text-center reduce-margin-bottop">
+    <div class="row align-items-center text-center">
       <div class="col-md">
         <h1 class="border-bottom">Edit issue</h1>
       </div>
@@ -41,10 +41,10 @@
             </div>
           </div>
           <div class="row box-new">
-            <div class="form-actions">
+            <div class="form-actions add-margin">
               <button type="submit" class="btn btn-block btn-success">Update</button>
             </div>
-            <div class="form-actions delete-margin">
+            <div class="form-actions">
               <form action="/issue/delete/<%= issue._id %>" method="post">
                 <button type="submit" class="btn btn-block btn-danger">Delete</button>
               </form>

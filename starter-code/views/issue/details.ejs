@@ -1,6 +1,6 @@
 <section class="probootstrap-cover relative background-grey">
   <div class="container">
-    <div class="row reduce-margin-bottop">
+    <div class="row">
       <div class=" align-items-center text-center col-md">
         <h1 class="border-bottom">Issue details</h1>
       </div>
@@ -27,8 +27,8 @@
           </div>
           <% if( issue.userId.equals(user._id) || user.role == "ADMIN") { %>
             <div class="row">
-              <a href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
-              <a class="delete-margin" href="/issue/delete/<%= issue._id %>"><button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button></a>
+              <a class="add-margin" href="/issue/edit/<%= issue._id %>"><button type="button" class="btn btn-warning navbar-btn">Edit</button></a>
+              <a href="/issue/delete/<%= issue._id %>"><button type="submit" formmethod="post" class="btn btn-danger navbar-btn">Delete</button></a>
             </div>
           <% } %>
         </div>
