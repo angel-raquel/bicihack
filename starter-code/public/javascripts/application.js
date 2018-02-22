@@ -129,8 +129,6 @@ function initialize() {
             //return response;
         })
         .catch(function (error) {
-            console.log("GET NO OK");
-            console.log(error);
             //return null;
         });
 

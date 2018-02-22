@@ -10,3 +10,11 @@ module.exports.index = (req, res, next) => {
     });
   });
 };
+
+module.exports.getStations = (req, res, next) => {
+  Station.find({})
+    .then(station => {
+      res.send(station)
+    })
+    .catch(error => next(error))
+};
