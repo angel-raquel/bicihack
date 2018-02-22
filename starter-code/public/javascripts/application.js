@@ -1,4 +1,8 @@
 function initialize() {
+    // First async get to verify if user is logged
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", '/isLogged', true );
+    xmlHttp.send( null );
 	
 	var mapOptions = {
 		zoom: 14,
@@ -103,7 +107,7 @@ function initialize() {
                             lat: event.latLng.lat(),
                             lng: event.latLng.lng()
                         }
-                        calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos);
+                        calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
                     });
 
                     infoLocation.setPosition(orgPos);
@@ -135,8 +139,9 @@ function initialize() {
 
 }
 
-function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos) {
-    if(typeof window.loggedUser === 'undefined') {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
+
+    if(xmlHttpStatus === 403) {
         alert("Only logged users can view routes");
     }
     else {
