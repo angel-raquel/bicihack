@@ -1,4 +1,8 @@
 function initialize() {
+    // First async get to verify if user is logged
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", '/isLogged', true );
+    xmlHttp.send( null );
 	
 	var mapOptions = {
 		zoom: 14,
@@ -33,103 +37,111 @@ function initialize() {
             isHtml: true,
             text: 'value'
         },
-        
+
         legend: 'none'
     };
 
     var markers = [];
 
-    for (var i = 0; i < stations.length; i++){
-        var position = new google.maps.LatLng(stations[i].latitude, stations[i].longitude);
-        if(stations[i].activate === 0 || stations[i].no_available === 1) {
-            var freeBikes = 0;
-            var docks = 0;
-            var reservedBikes = 0;
-            var offline = 1; 
-        }
-        else {
-            var freeBikes = stations[i].dock_bikes;
-            var docks = stations[i].free_bases;
-            var reservedBikes = stations[i].reservations_count;
-            var offline = 0;
-        }
-
-        var data = google.visualization.arrayToDataTable([
-            ['parameter', 'value'],
-            ['bikes', freeBikes],
-            ['docks', docks],
-            ['reservations', reservedBikes],
-            ['offline', offline]
-        ]);
-
-        var size = map.zoom * 5;
-        var sizepx = size+"px";
-
-        var customMarker = new CustomMarker(
-            {             
-                map: map,
-                position: position,  
-                width: sizepx,
-                height: sizepx,
-                chartData: data,
-                chartOptions: options
-            }
-        )
-
-        markers.push(customMarker);
-
-        // var name = stations[i].name;
-        // var dock_bikes = stations[i].dock_bikes;
-        // var free_bases = stations[i].free_bases;
-        // var reservations_count = stations[i].reservations_count;
-    }
-
-    // to cluster our CustomMarkers
-    var markerCluster = new MarkerClusterer(map, markers,
-        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-        var infoLocation = new google.maps.InfoWindow({map: map});
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-            var orgPos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            // When geo-position is set add listener for right-click 
-            map.addListener('rightclick', function(event) {
-                var dstPos = {
-                    lat: event.latLng.lat(),
-                    lng: event.latLng.lng()
+    axios.get('/station/getStations')
+        .then(function (response) {
+            //console.log(response.data);
+            var stations = response.data;
+            for (var i = 0; i < stations.length; i++){
+                var position = new google.maps.LatLng(stations[i].latitude, stations[i].longitude);
+                if(stations[i].activate === 0 || stations[i].no_available === 1) {
+                    var freeBikes = 0;
+                    var docks = 0;
+                    var reservedBikes = 0;
+                    var offline = 1; 
                 }
-                calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos);
-            });
+                else {
+                    var freeBikes = stations[i].dock_bikes;
+                    var docks = stations[i].free_bases;
+                    var reservedBikes = stations[i].reservations_count;
+                    var offline = 0;
+                }
 
-            infoLocation.setPosition(orgPos);
-            infoLocation.setContent(`You're here`);
-            //map.setCenter(pos);
-            }, function() {
-                handleLocationError(true, infoLocation, map.getCenter());
-            });
-            // User position
-            // var marker = new google.maps.Marker({
-            //     position: pos,
-            //     map: map
-            //   });
-            //   marker.setMap(map);
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoLocation, map.getCenter());
-        }
+                var data = google.visualization.arrayToDataTable([
+                    ['parameter', 'value'],
+                    ['bikes', freeBikes],
+                    ['docks', docks],
+                    ['reservations', reservedBikes],
+                    ['offline', offline]
+                ]);
 
-        // google.maps.event.addListener(map, 'rightclick', function() {
-        //     console.log("RIGHT CLICK!");
-        // });
+                var size = map.zoom * 5;
+                var sizepx = size+"px";
+
+                var customMarker = new CustomMarker(
+                    {             
+                        map: map,
+                        position: position,  
+                        width: sizepx,
+                        height: sizepx,
+                        chartData: data,
+                        chartOptions: options
+                    }
+                )
+
+                markers.push(customMarker);
+
+            } // fin for
+
+            // to cluster our CustomMarkers
+            var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+            var infoLocation = new google.maps.InfoWindow({map: map});
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var orgPos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    // When geo-position is set add listener for right-click 
+                    map.addListener('rightclick', function(event) {
+                        var dstPos = {
+                            lat: event.latLng.lat(),
+                            lng: event.latLng.lng()
+                        }
+                        calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
+                    });
+
+                    infoLocation.setPosition(orgPos);
+                    infoLocation.setContent(`You're here`);
+                    //map.setCenter(pos);
+                }, function() {
+                        handleLocationError(true, infoLocation, map.getCenter());
+                    });
+                    // User position
+                    // var marker = new google.maps.Marker({
+                    //     position: pos,
+                    //     map: map
+                    //   });
+                    //   marker.setMap(map);
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoLocation, map.getCenter());
+            }
+
+                // google.maps.event.addListener(map, 'rightclick', function() {
+                //     console.log("RIGHT CLICK!");
+                // });   
+            //return response;
+        })
+        .catch(function (error) {
+            //return null;
+        });
+
+
 }
 
-function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos) {
-    if(typeof window.loggedUser === 'undefined') {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
+
+    if(xmlHttpStatus === 403) {
         alert("Only logged users can view routes");
     }
     else {
