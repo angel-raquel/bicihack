@@ -51,7 +51,8 @@ const stationSchema = new mongoose.Schema({
   reservations_count: {
     type: Number,
     required: [true, 'Number of active reservations is required']
-  }
+  },
+  versionKey: false
 });
 
 module.exports = mongoose.model('Station', stationSchema);

@@ -9,6 +9,14 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
+var schedule = require('node-schedule');
+
+// Schedule API GET to Bicimad and update mongodb each 15 minutes
+const bicimad = require('./configs/bicimad')
+var schedule = schedule.scheduleJob('*/1 * * * *', function(){
+  bicimad.getBicimadStations();
+  console.log("SCHEDULE");
+});
 
 const app = express();
 
