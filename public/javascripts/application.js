@@ -1,5 +1,4 @@
 function initialize() {
-    // First async get to verify if user is logged
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", '/isLogged', true );
     xmlHttp.send( null );
@@ -17,22 +16,20 @@ function initialize() {
         },
         styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}]
     }
-    
+
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
-	
+
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     directionsDisplay.setMap(map);
-    
+
     var options = {
-        //title: 'Station info',
         fontSize: 10,
         backgroundColor: 'transparent',
-        //is3D: true,
         pieHole: 0.4,
         colors: ['#00cc00', '#0000ff', '#ff0000', '#808080'],
-        tooltip: { 
+        tooltip: {
             trigger: 'selection',
             ignoreBounds: true,
             isHtml: true,
@@ -53,7 +50,7 @@ function initialize() {
                     var freeBikes = 0;
                     var docks = 0;
                     var reservedBikes = 0;
-                    var offline = 1; 
+                    var offline = 1;
                 }
                 else {
                     var freeBikes = stations[i].dock_bikes;
@@ -74,9 +71,9 @@ function initialize() {
                 var sizepx = size+"px";
 
                 var customMarker = new CustomMarker(
-                    {             
+                    {
                         map: map,
-                        position: position,  
+                        position: position,
                         width: sizepx,
                         height: sizepx,
                         chartData: data,
@@ -90,25 +87,20 @@ function initialize() {
 
                 markers.push(customMarker);
 
-            } // fin for
+            }
 
-            // to cluster our CustomMarkers
             var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: '/images/m/'});
 
             var infoLocation = new google.maps.InfoWindow({map: map});
 
-            // 1 If we want to avoid geolocalization for non-logged users
-            // 1 var xmlHttpStatus = xmlHttp.status;
-            // 1 if(xmlHttpStatus === 200) {
-                // Try HTML5 geolocation.
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         var orgPos = {
                             lat: position.coords.latitude,
                             lng: position.coords.longitude
                         };
-                        // When geo-position is set add listener for right-click 
+                        // When geo-position is set add listener for right-click
                         map.addListener('rightclick', function(event) {
                             var dstPos = {
                                 lat: event.latLng.lat(),
@@ -124,13 +116,10 @@ function initialize() {
                             handleLocationError(true, infoLocation, map.getCenter());
                         });
                 } else {
-                    // Browser doesn't support Geolocation
                     handleLocationError(false, infoLocation, map.getCenter());
                 }
-            // 1 }
         })
         .catch(function (error) {
-            //return null;
         });
 
 
@@ -156,7 +145,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, 
         $("#dialog-text").html("");
         $("#dialog-text").append(stationInfoHtml);
         $("#dialog").dialog("open");
-        
+
     }
     else {
         directionsService.route({
@@ -167,7 +156,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, 
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
                     var route = response.routes[0];
-                } 
+                }
                 else {
                     window.alert('Directions request failed due to ' + status);
                 }

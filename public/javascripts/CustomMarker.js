@@ -8,9 +8,9 @@ function CustomMarker(options) {
     this.directionsDisplay = options.directionsDisplay;
     this.start;
     this.end;
-    
+
     this.setValues( options );
-    
+
     this.inner_ = $('<div>').css({
         position: 'relative',
         left: '-50%', top: '-50%',
@@ -69,7 +69,7 @@ CustomMarker.prototype.draw = function() {
         this.chart.setAction({
             id: '1',
             text: 'Show info',
-            action: function() {      
+            action: function() {
                 $("#dialog").attr('title', 'Station info');
                 $("#dialog").dialog({
                     autoOpen: false,
@@ -105,7 +105,7 @@ CustomMarker.prototype.draw = function() {
                 $("#dialog-text").html("");
                 $("#dialog-text").append(stationInfoHtml);
                 $("#dialog").dialog("open");
-                
+
             }
         });
         this.chart.setAction({
@@ -139,28 +139,28 @@ CustomMarker.prototype.draw = function() {
                 $(form).submit();
 
             }
-        }); 
+        });
 
     }
- 
+
 };
 
 CustomMarker.prototype.remove = function() {
 	if (this.div) {
 		this.div.parentNode.removeChild(this.div);
 		this.div = null;
-	}	
+	}
 };
 
 CustomMarker.prototype.getPosition = function() {
-	return this.latlng;	
+	return this.latlng;
 };
 
 CustomMarker.prototype.setVisible = function(visible) {
 
 }
 
-CustomMarker.prototype.onAdd = function() {    
+CustomMarker.prototype.onAdd = function() {
     $( this.getPanes().overlayMouseTarget ).append( this.div_ );
 };
 
@@ -169,9 +169,7 @@ CustomMarker.prototype.onRemove = function() {
 };
 
 CustomMarker.prototype.resizeChart = function() {
-    // base = 40px
     var base = 40;
-    // increments by 20px
     var increment = 20;
     var zoomArray = [14,15,16,17,18,19,20,21,22];
 

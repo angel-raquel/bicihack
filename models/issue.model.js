@@ -13,7 +13,6 @@ const issueSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-        // required: [true, 'Issue needs an user']
     },
     message: {
         type: String,

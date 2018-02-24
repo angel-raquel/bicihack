@@ -30,12 +30,12 @@ const stationSchema = new mongoose.Schema({
     type: Number,
     enum: [0, 1],
     default: 1
-  }, //Active station (0=Not active, 1=active)
+  },
   no_available: {
     type: Number,
     enum: [0, 1],
     default: 0
-  }, //(0=available, 1=not available)
+  }, 
   total_bases: {
     type: Number,
     required: [true, 'Number of station bases is required']

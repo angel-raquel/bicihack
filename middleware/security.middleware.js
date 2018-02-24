@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 const Issue = require('../models/issue.model');
 
-// Check if a user is authenticated
 module.exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         next()
@@ -12,7 +11,6 @@ module.exports.isAuthenticated = (req, res, next) => {
     }
 }
 
-// Check if i am the owner of my profile
 module.exports.isMyProfile = (req, res, next) => {
     if(req.user._id != req.params.id) {
        res.render("auth/login", {
@@ -24,7 +22,6 @@ module.exports.isMyProfile = (req, res, next) => {
     }
 }
 
-// Only can edit issues: owner and ADMIN
 module.exports.canEditIssue = (req, res, next) => {
     Issue.findById(req.params.id)
     .then(issue => {
