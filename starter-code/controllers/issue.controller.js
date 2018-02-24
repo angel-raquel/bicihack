@@ -175,3 +175,14 @@ module.exports.myIssues = (req, res, next) => {
     })
     .catch(error => next(error))
 }
+
+module.exports.allIssues = (req, res, next) => {
+    Issue.find({})
+    .then(issues => {
+        res.render('issue/list', {
+            user: req.user,
+            issues: issues
+        })
+    })
+    .catch(error => next(error))
+}

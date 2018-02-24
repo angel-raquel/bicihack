@@ -25,6 +25,7 @@
             <% if(typeof loggedUser !== 'undefined') { %>
               <li class="nav-item"><a class="nav-link" href="/user/<%= loggedUser._id %>">My profile</a></li>
               <li class="nav-item"><a class="nav-link" href="/issue/myIssues">My issues</a></li>
+              <li class="nav-item"><a class="nav-link" href="/issue/list">All issues</a></li>
               <li class="nav-item"><a class="nav-link" href="/issue/new">Create issue</a></li>
               <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
             <% } %>
