@@ -93,32 +93,36 @@ function initialize() {
 
             var infoLocation = new google.maps.InfoWindow({map: map});
 
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var orgPos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    // When geo-position is set add listener for right-click 
-                    map.addListener('rightclick', function(event) {
-                        var dstPos = {
-                            lat: event.latLng.lat(),
-                            lng: event.latLng.lng()
-                        }
-                        calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
-                    });
+            // 1 If we want to avoid geolocalization for non-logged users
+            // 1 var xmlHttpStatus = xmlHttp.status;
+            // 1 if(xmlHttpStatus === 200) {
+                // Try HTML5 geolocation.
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var orgPos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        // When geo-position is set add listener for right-click 
+                        map.addListener('rightclick', function(event) {
+                            var dstPos = {
+                                lat: event.latLng.lat(),
+                                lng: event.latLng.lng()
+                            }
+                            calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
+                        });
 
-                    infoLocation.setPosition(orgPos);
-                    infoLocation.setContent(`You're here`);
-                    //map.setCenter(pos);
-                }, function() {
-                        handleLocationError(true, infoLocation, map.getCenter());
-                    });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoLocation, map.getCenter());
-            }
+                        infoLocation.setPosition(orgPos);
+                        infoLocation.setContent(`You're here`);
+                        //map.setCenter(pos);
+                    }, function() {
+                            handleLocationError(true, infoLocation, map.getCenter());
+                        });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoLocation, map.getCenter());
+                }
+            // 1 }
         })
         .catch(function (error) {
             //return null;
