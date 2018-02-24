@@ -81,12 +81,32 @@ CustomMarker.prototype.draw = function() {
                         duration: 500
                     }
                 });
+                // var stationInfoHtml = `
+                //     <p>Station name: <b>${that.station.name}</b></p>
+                //     <p>Free bikes: <b>${that.station.dock_bikes}</b></p>
+                //     <p>Free docks: <b>${that.station.free_bases}</b></p>
+                //     <p>Bikes reserved: <b>${that.station.reservations_count}</b></p>
+                // `
                 var stationInfoHtml = `
-                    <p>Station name: <b>${that.station.name}</b></p>
-                    <p>Free bikes: <b>${that.station.dock_bikes}</b></p>
-                    <p>Free docks: <b>${that.station.free_bases}</b></p>
-                    <p>Bikes reserved: <b>${that.station.reservations_count}</b></p>
-                `
+                <table>
+                    <tr>
+                        <th align="left">Station name</td>
+                        <td align="right">${that.station.name}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Free bikes</td>
+                        <td align="right">${that.station.dock_bikes}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Free docks</td>
+                        <td align="right">${that.station.free_bases}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Bikes reserved</td>
+                        <td align="right">${that.station.reservations_count}</td>
+                    </tr>
+                </table>
+            `
                 $("#dialog-text").html("");
                 $("#dialog-text").append(stationInfoHtml);
                 $("#dialog").dialog("open");
