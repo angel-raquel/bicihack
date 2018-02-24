@@ -24,7 +24,7 @@ module.exports.doEdit = (req, res, next) => {
         .then(user => {
             if(user != null) {
                 if (req.file) {
-                  user.imageUrl = `/user-avatars/${req.file.filename}`
+                  user.imageUrl = `${req.file.url}`;
                 }
                 user.email = req.body.email;
                 user.password = req.body.password || user.password;

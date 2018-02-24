@@ -12,7 +12,6 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 var schedule = require('node-schedule');
 
-// Schedule API GET to Bicimad and update mongodb each 15 minutes
 const bicimad = require('./configs/bicimad')
 var schedule = schedule.scheduleJob('*/15 * * * *', function(){
   const bicimadUser = process.env.BICIMAD_USER;
@@ -20,14 +19,14 @@ var schedule = schedule.scheduleJob('*/15 * * * *', function(){
   bicimad.getBicimadStations(bicimadUser, bicimadKey);
 });
 
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
-// Configs
+
 require('./configs/db.config');
 require('./configs/passport.config').setup(passport);
 
-// Routes
 const index = require('./routes/index.routes');
 const auth = require('./routes/auth.routes');
 const user = require('./routes/user.routes');
