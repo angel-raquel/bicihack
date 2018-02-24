@@ -2,8 +2,12 @@ function CustomMarker(options) {
     this.latlng = options.position;
     this.map_ = options.map;
     this.zoomOld = this.map_.zoom;
-	//this.args = args;	
-    //this.setMap(options.map);	
+    this.station = options.station;
+    this.xmlHttpStatus = options.xmlHttpStatus;
+    this.directionsService = options.directionsService;
+    this.directionsDisplay = options.directionsDisplay;
+    this.start;
+    this.end;
     
     this.setValues( options );
     
@@ -41,7 +45,6 @@ CustomMarker.prototype.draw = function() {
     })
 
     this.inner_.css({
-        // background: 'yellow',
         width: this.resizeChart(),
         height: this.resizeChart()
     });
@@ -50,24 +53,96 @@ CustomMarker.prototype.draw = function() {
         return;
     }
 
+    var that = this;
     this.chart = new google.visualization.PieChart( this.inner_[0] );
     this.chart.draw( this.get('chartData'), this.get('chartOptions') );
-    this.chart.setAction({
-        id: '1',
-        text: 'Show info',
-        action: function() {
-            alert("SHOW STATION INFO");
-            //chart.draw(data, options);
-        }
-    });
-    this.chart.setAction({
-        id: '2',
-        text: 'Create issue',
-        action: function() {
-            window.location.replace("issue/new");
-            //chart.draw(data, options);
-        }
-    });
+    if(this.xmlHttpStatus === 403) {
+        this.chart.setAction({
+            id: '1',
+            text: 'Login',
+            action: function() {
+                window.location.replace('/login');
+            }
+        });
+    }
+    else {
+        this.chart.setAction({
+            id: '1',
+            text: 'Show info',
+            action: function() {      
+                $("#dialog").attr('title', 'Station info');
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    show: {
+                        effect: "blind",
+                        duration: 500
+                    },
+                    hide: {
+                        effect: "explode",
+                        duration: 500
+                    }
+                });
+                var stationInfoHtml = `
+                <table>
+                    <tr>
+                        <th align="left">Station name</td>
+                        <td align="right">${that.station.name}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Free bikes</td>
+                        <td align="right">${that.station.dock_bikes}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Free docks</td>
+                        <td align="right">${that.station.free_bases}</td>
+                    </tr>
+                    <tr>
+                        <th align="left">Bikes reserved</td>
+                        <td align="right">${that.station.reservations_count}</td>
+                    </tr>
+                </table>
+            `
+                $("#dialog-text").html("");
+                $("#dialog-text").append(stationInfoHtml);
+                $("#dialog").dialog("open");
+                
+            }
+        });
+        this.chart.setAction({
+            id: '2',
+            text: 'Create issue',
+            action: function() {
+                var stationId = that.station.id;
+                var stationIssueUrl = `/issue/new/station?id=${stationId}`;
+                window.location.replace(stationIssueUrl);
+            }
+        });
+        this.chart.setAction({
+            id: '3',
+            text: 'Search issue',
+            action: function() {
+
+                var stationId = that.station.id;
+                var url = '/issue/search';
+                var form = $(document.createElement('form'));
+                $(form).attr("action", url);
+                $(form).attr("method", "POST");
+
+                var input = $("<input>")
+                    .attr("type", "hidden")
+                    .attr("name", "referenceIdStation")
+                    .val(stationId);
+
+
+                $(form).append($(input));
+                form.appendTo( document.body )
+                $(form).submit();
+
+            }
+        }); 
+
+    }
+ 
 };
 
 CustomMarker.prototype.remove = function() {
@@ -102,8 +177,6 @@ CustomMarker.prototype.resizeChart = function() {
 
     var index = zoomArray.indexOf(this.map_.zoom);
     var resizeValue = base + (index * increment);
-    // console.log("ZOOM: " + this.map_.zoom);
-    // console.log("INDEX: " + index);
     return `${resizeValue}px`
 
 };
@@ -117,38 +190,3 @@ CustomMarker.prototype.zoomNotChanged= function() {
         return false;
     }
 };
-
-// Set the visibility to 'hidden' or 'visible'.
-CustomMarker.prototype.hide = function() {
-    console.log(this.div_);
-    if (this.div_) {
-    // The visibility property must be a string enclosed in quotes.
-    this.div_.style.visibility = 'hidden';
-    }
-};
-
-CustomMarker.prototype.show = function() {
-    if (this.div_) {
-    this.div_.style.visibility = 'visible';
-    }
-};
-
-CustomMarker.prototype.toggle = function() {
-    if (this.div_) {
-    if (this.div_.style.visibility === 'hidden') {
-        this.show();
-    } else {
-        this.hide();
-    }
-    }
-};
-
-CustomMarker.prototype.printMsg = function() {
-    console.log("PRINTMSG");
-}
-
-CustomMarker.prototype.addClickEvent = function() { 
-    google.maps.event.addDomListener($(this.div_), 'click', function() { 
-        alert("you clicked!"); 
-    }); 
-} 

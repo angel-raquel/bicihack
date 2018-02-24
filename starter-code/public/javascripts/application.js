@@ -3,7 +3,7 @@ function initialize() {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", '/isLogged', true );
     xmlHttp.send( null );
-	
+
 	var mapOptions = {
 		zoom: 14,
         center: new google.maps.LatLng(40.415451988566375,356.29836363220215),
@@ -14,7 +14,8 @@ function initialize() {
         },
         fullscreenControlOptions: {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
-        }
+        },
+        styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}]
     }
     
     var directionsService = new google.maps.DirectionsService;
@@ -45,7 +46,6 @@ function initialize() {
 
     axios.get('/station/getStations')
         .then(function (response) {
-            //console.log(response.data);
             var stations = response.data;
             for (var i = 0; i < stations.length; i++){
                 var position = new google.maps.LatLng(stations[i].latitude, stations[i].longitude);
@@ -80,7 +80,11 @@ function initialize() {
                         width: sizepx,
                         height: sizepx,
                         chartData: data,
-                        chartOptions: options
+                        chartOptions: options,
+                        station: stations[i],
+                        xmlHttpStatus: xmlHttp.status,
+                        directionsService: directionsService,
+                        directionsDisplay: directionsDisplay
                     }
                 )
 
@@ -90,36 +94,40 @@ function initialize() {
 
             // to cluster our CustomMarkers
             var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            {imagePath: '/images/m/'});
 
             var infoLocation = new google.maps.InfoWindow({map: map});
 
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var orgPos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    // When geo-position is set add listener for right-click 
-                    map.addListener('rightclick', function(event) {
-                        var dstPos = {
-                            lat: event.latLng.lat(),
-                            lng: event.latLng.lng()
-                        }
-                        calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
-                    });
+            // 1 If we want to avoid geolocalization for non-logged users
+            // 1 var xmlHttpStatus = xmlHttp.status;
+            // 1 if(xmlHttpStatus === 200) {
+                // Try HTML5 geolocation.
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var orgPos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        // When geo-position is set add listener for right-click 
+                        map.addListener('rightclick', function(event) {
+                            var dstPos = {
+                                lat: event.latLng.lat(),
+                                lng: event.latLng.lng()
+                            }
+                            calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttp.status);
+                        });
 
-                    infoLocation.setPosition(orgPos);
-                    infoLocation.setContent(`You're here`);
-                    //map.setCenter(pos);
-                }, function() {
-                        handleLocationError(true, infoLocation, map.getCenter());
-                    });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoLocation, map.getCenter());
-            }
+                        infoLocation.setPosition(orgPos);
+                        infoLocation.setContent(`You're here`);
+                        map.setCenter(orgPos);
+                    }, function() {
+                            handleLocationError(true, infoLocation, map.getCenter());
+                        });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoLocation, map.getCenter());
+                }
+            // 1 }
         })
         .catch(function (error) {
             //return null;
@@ -129,9 +137,28 @@ function initialize() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
-
+    console.log("DS")
+    console.log(directionsService)
     if(xmlHttpStatus === 403) {
-        alert("Only logged users can view routes");
+        $("#dialog").attr('title', 'Access denied');
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 500
+            },
+            hide: {
+                effect: "explode",
+                duration: 500
+            }
+        });
+        var stationInfoHtml = `
+            <img src="https://pedale.mx/aj./webmaster/getfile/8407713a08e455f6cf928892ac7845f4,q.gif.pagespeed.ce.0wyEai4-7S.gif" width="auto" height="200px">
+        `
+        $("#dialog-text").html("");
+        $("#dialog-text").append(stationInfoHtml);
+        $("#dialog").dialog("open");
+        
     }
     else {
         directionsService.route({
