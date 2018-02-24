@@ -114,7 +114,7 @@ function initialize() {
 
                         infoLocation.setPosition(orgPos);
                         infoLocation.setContent(`You're here`);
-                        //map.setCenter(pos);
+                        map.setCenter(orgPos);
                     }, function() {
                             handleLocationError(true, infoLocation, map.getCenter());
                         });
