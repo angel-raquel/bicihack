@@ -79,7 +79,9 @@ function initialize() {
                         chartData: data,
                         chartOptions: options,
                         station: stations[i],
-                        xmlHttpStatus: xmlHttp.status
+                        xmlHttpStatus: xmlHttp.status,
+                        directionsService: directionsService,
+                        directionsDisplay: directionsDisplay
                     }
                 )
 
@@ -89,7 +91,7 @@ function initialize() {
 
             // to cluster our CustomMarkers
             var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            {imagePath: '/images/m/'});
 
             var infoLocation = new google.maps.InfoWindow({map: map});
 
@@ -132,7 +134,8 @@ function initialize() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
-
+    console.log("DS")
+    console.log(directionsService)
     if(xmlHttpStatus === 403) {
         $("#dialog").attr('title', 'Access denied');
         $("#dialog").dialog({

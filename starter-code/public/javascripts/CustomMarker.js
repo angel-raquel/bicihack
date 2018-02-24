@@ -4,8 +4,10 @@ function CustomMarker(options) {
     this.zoomOld = this.map_.zoom;
     this.station = options.station;
     this.xmlHttpStatus = options.xmlHttpStatus;
-	//this.args = args;	
-    //this.setMap(options.map);	
+    this.directionsService = options.directionsService;
+    this.directionsDisplay = options.directionsDisplay;
+    this.start;
+    this.end;
     
     this.setValues( options );
     
@@ -43,7 +45,6 @@ CustomMarker.prototype.draw = function() {
     })
 
     this.inner_.css({
-        // background: 'yellow',
         width: this.resizeChart(),
         height: this.resizeChart()
     });
@@ -81,12 +82,6 @@ CustomMarker.prototype.draw = function() {
                         duration: 500
                     }
                 });
-                // var stationInfoHtml = `
-                //     <p>Station name: <b>${that.station.name}</b></p>
-                //     <p>Free bikes: <b>${that.station.dock_bikes}</b></p>
-                //     <p>Free docks: <b>${that.station.free_bases}</b></p>
-                //     <p>Bikes reserved: <b>${that.station.reservations_count}</b></p>
-                // `
                 var stationInfoHtml = `
                 <table>
                     <tr>
@@ -129,11 +124,6 @@ CustomMarker.prototype.draw = function() {
 
                 var stationId = that.station.id;
                 var url = '/issue/search';
-      
-                // $(document).ready(function(){
-                //     $('<form action="/issue/search"></form>').appendTo('body').submit();
-                // });
-
                 var form = $(document.createElement('form'));
                 $(form).attr("action", url);
                 $(form).attr("method", "POST");
@@ -150,6 +140,7 @@ CustomMarker.prototype.draw = function() {
 
             }
         }); 
+
     }
  
 };
@@ -199,37 +190,3 @@ CustomMarker.prototype.zoomNotChanged= function() {
         return false;
     }
 };
-
-// // Set the visibility to 'hidden' or 'visible'.
-// CustomMarker.prototype.hide = function() {
-//     if (this.div_) {
-//     // The visibility property must be a string enclosed in quotes.
-//     this.div_.style.visibility = 'hidden';
-//     }
-// };
-
-// CustomMarker.prototype.show = function() {
-//     if (this.div_) {
-//     this.div_.style.visibility = 'visible';
-//     }
-// };
-
-// CustomMarker.prototype.toggle = function() {
-//     if (this.div_) {
-//     if (this.div_.style.visibility === 'hidden') {
-//         this.show();
-//     } else {
-//         this.hide();
-//     }
-//     }
-// };
-
-// CustomMarker.prototype.printMsg = function() {
-
-// }
-
-// CustomMarker.prototype.addClickEvent = function() { 
-//     google.maps.event.addDomListener($(this.div_), 'click', function() { 
-//         alert("you clicked!"); 
-//     }); 
-// } 
