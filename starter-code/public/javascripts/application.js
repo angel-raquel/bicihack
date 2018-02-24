@@ -1,8 +1,5 @@
 function initialize() {
     // First async get to verify if user is logged
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", '/isLogged', true );
-    xmlHttp.send( null );
 	
 	var mapOptions = {
 		zoom: 14,
@@ -14,7 +11,8 @@ function initialize() {
         },
         fullscreenControlOptions: {
             position: google.maps.ControlPosition.RIGHT_BOTTOM
-        }
+        },
+        styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}]
     }
     
     var directionsService = new google.maps.DirectionsService;
@@ -45,7 +43,6 @@ function initialize() {
 
     axios.get('/station/getStations')
         .then(function (response) {
-            //console.log(response.data);
             var stations = response.data;
             for (var i = 0; i < stations.length; i++){
                 var position = new google.maps.LatLng(stations[i].latitude, stations[i].longitude);
@@ -80,7 +77,9 @@ function initialize() {
                         width: sizepx,
                         height: sizepx,
                         chartData: data,
-                        chartOptions: options
+                        chartOptions: options,
+                        station: stations[i],
+                        xmlHttpStatus: xmlHttp.status
                     }
                 )
 
@@ -131,7 +130,25 @@ function initialize() {
 function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
 
     if(xmlHttpStatus === 403) {
-        alert("Only logged users can view routes");
+        $("#dialog").attr('title', 'Access denied');
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: {
+                effect: "blind",
+                duration: 500
+            },
+            hide: {
+                effect: "explode",
+                duration: 500
+            }
+        });
+        var stationInfoHtml = `
+            <img src="https://pedale.mx/aj./webmaster/getfile/8407713a08e455f6cf928892ac7845f4,q.gif.pagespeed.ce.0wyEai4-7S.gif" width="auto" height="200px">
+        `
+        $("#dialog-text").html("");
+        $("#dialog-text").append(stationInfoHtml);
+        $("#dialog").dialog("open");
+        
     }
     else {
         directionsService.route({

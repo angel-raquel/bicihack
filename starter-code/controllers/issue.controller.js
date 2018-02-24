@@ -24,7 +24,16 @@ module.exports.select = (req, res, next) => {
 module.exports.new = (req, res, next) => {
     switch(req.params.type) {
         case 'station':
-            Station.find({})
+            var stationId = req.query.id;
+            if(stationId) {
+                console.log("FILTER id: " + stationId);
+                var filter = {id: stationId}
+            }
+            else {
+                console.log("NO FILTER");
+                var filter = {}
+            }
+            Station.find(filter)
             .then(stations => {
                 res.render('issue/new', {
                     type: req.params.type,
@@ -127,20 +136,21 @@ module.exports.delete = (req, res, next) => {
 }
 
 module.exports.search = (req, res, next) => {
-    if(req.body.referenceIdBike != '') {
+    if(req.body.referenceIdBike != '' && req.body.referenceIdBike != undefined) {
         searchObj = {
             type: "bike",
             referenceId: req.body.referenceIdBike
         }
     }
     else {
-        if(req.body.referenceIdStation != '') {
+        if(req.body.referenceIdStation != '' && req.body.referenceIdStation != undefined) {
             searchObj = {
                 type: "station",
                 referenceId: req.body.referenceIdStation
             }
         }    
         else {
+
             searchObj = {
             }
         }
@@ -149,7 +159,6 @@ module.exports.search = (req, res, next) => {
     .then(issues => {
         res.render('issue/list', {
             user: req.user,
-            bike: {referenceId: req.body.referenceId},
             issues: issues
         })
     })
