@@ -33,7 +33,6 @@ const userSchema = new mongoose.Schema({
     },
     imageUrl: {
         type: String,
-        //match: [/(\w*\W*)?\w*(\.(\w)+)+(\W\d+)?(\/\w*(\W*\w)*)*/, 'Please insert a valid url']
         default: '/images/user.png'
     }
 }, { timestamps: true} );

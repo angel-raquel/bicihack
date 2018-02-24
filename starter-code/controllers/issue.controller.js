@@ -47,7 +47,7 @@ module.exports.new = (req, res, next) => {
         case 'bike':
             res.render('issue/new', {
                 type: req.params.type
-            });    
+            });
             break;
         default:
             res.send("ERROR");
@@ -61,7 +61,6 @@ module.exports.doNew = (req, res, next) => {
         referenceId: req.body.referenceId,
         userId: req.user._id,
         message: req.body.message
-        // imageUrl: req.body.imageUrl
     });
     issue.save()
     .then(() => {
@@ -95,7 +94,7 @@ module.exports.edit = (req, res, next) => {
             case 'bike':
                 res.render('issue/edit', {
                     issue: issue
-                });    
+                });
                 break;
             default:
                 res.send("EDIT: no station nor bike");
@@ -148,7 +147,7 @@ module.exports.search = (req, res, next) => {
                 type: "station",
                 referenceId: req.body.referenceIdStation
             }
-        }    
+        }
         else {
 
             searchObj = {
