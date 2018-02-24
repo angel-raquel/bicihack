@@ -137,8 +137,6 @@ function initialize() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, dstPos, xmlHttpStatus) {
-    console.log("DS")
-    console.log(directionsService)
     if(xmlHttpStatus === 403) {
         $("#dialog").attr('title', 'Access denied');
         $("#dialog").dialog({

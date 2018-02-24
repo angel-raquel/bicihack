@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -14,7 +15,9 @@ var schedule = require('node-schedule');
 // Schedule API GET to Bicimad and update mongodb each 15 minutes
 const bicimad = require('./configs/bicimad')
 var schedule = schedule.scheduleJob('*/15 * * * *', function(){
-  bicimad.getBicimadStations();
+  const bicimadUser = process.env.BICIMAD_USER;
+  const bicimadKey = process.env.BICIMAD_KEY;
+  bicimad.getBicimadStations(bicimadUser, bicimadKey);
 });
 
 const app = express();
