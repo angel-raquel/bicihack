@@ -1,8 +1,5 @@
 function initialize() {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", '/isLogged', true );
-    xmlHttp.send( null );
-
+ 
 	var mapOptions = {
 		zoom: 14,
         center: new google.maps.LatLng(40.415451988566375,356.29836363220215),
