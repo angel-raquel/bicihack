@@ -156,6 +156,149 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, 
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
                     var route = response.routes[0];
+                    $("#dialog").attr('title', 'Route simulator');
+                    $("#dialog").dialog({
+                        autoOpen: false,
+                        show: {
+                            effect: "blind",
+                            duration: 500
+                        },
+                        hide: {
+                            effect: "explode",
+                            duration: 500
+                        }
+                    });
+                    var stationInfoHtml = `
+                    <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="row">
+                          <div class="col-sm-12" style="text-align:right">
+                            <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="true"
+                              data-share="true">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="panel panel-primary">
+                          <div class="panel-body">
+                            <form id="mainform" class="form-horizontal" onsubmit="initMovie();return false">
+                              <div class="form-group hidden">
+                                <div class="col-sm-10 hidden">
+                                  <input name="origin" class="form-control hidden" onchange="buildLink()" placeholder="origin" type="hidden" id="origin" value="${orgPos.lat},${orgPos.lng}"/>
+                                </div>
+                              </div>
+                              <div class="form-group hidden">
+                                <div class="col-sm-10">
+                                  <input name="destination" class="form-control hidden" onchange="buildLink()" placeholder="destination" type="hidden" id="destination" value="${dstPos.lat},${dstPos.lng}"/>
+                                </div>
+                              </div>
+                                <div class="form-group">
+                                  <div class="col-sm-10">
+                                    <label for="fps">Speed</label>
+                                    <input name="fps" class="form-control hidden" onchange="buildLink()" placeholder="frames per second" type="text" id="fps" value="1"/>
+                                  </div>
+                                </div>
+                                <div class="form-group hidden">
+                                  <div class="col-sm-10">
+                                    <select name="travelmode" class="form-control hidden" onchange="buildLink()" id="travelmode" type="hidden">
+                                      <option value="DRIVING">Driving</option>
+                                      <option value="BICYCLING" selected>Bicycling</option>
+                                      <option value="TRANSIT">Transit</option>
+                                      <option value="WALKING">Walking</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group hidden">
+                                  <div class="col-sm-10 hidden">
+                                    <input type="hidden" id="gxp-file" class="btn btn-secondary hidden" />
+                                  </div>
+                                </div>
+                                <div class="form-group hidden">
+                                  <div class="col-sm-10">
+                                    <input type="hidden" id="routename" name="rn" onchange="buildLink()" class="form-control hidden" />
+                                  </div>
+                                </div>
+                              <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <input type="submit" class="btn btn-primary" value="Play" />
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-9" style="margin-top:20px">
+                        <div id="statusbox" class="alert alert-danger" style="display:none"></div>
+                        <div class="panel panel-info" id="stage" style="display:none">
+                          <div class="panel-heading">
+                            <span style="float:right" id="route-distance"></span>
+                            <span id="route-name-label"></span>
+                          </div>
+                          <div class="panel-body">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <canvas id="draw" height="700"></canvas>
+                                <div id="progress" class="progress">
+                                  <div class="progress-bar progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressbar" style="width:0%"></div>
+                                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bufferbar" style="width:0%"></div>
+                                </div>
+                                <div class="btn-group" id="controls" style="visibility:hidden;height:20px;margin-bottom:20px">
+                                  <button title="Pause" type="button" class="btn btn-sm btn-primary" id="btn_playpause" onclick="pauseMovie(this)">
+                                    <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" aria-label="Slower" onclick="slowDownMovie()" title="Slower">
+                                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" aria-label="Faster" title="Faster" onclick="speedUpMovie()">
+                                    <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" aria-label="Download" title="Download" data-toggle="modal" data-target="#downloadModal">
+                                    <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" aria-label="Share" title="Share" onclick="shareMovie()" data-toggle="modal" data-target="#shareModal">
+                                    <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                                  </button>
+                                  <button type="button" class="btn btn-sm" aria-label="Fullscreen" title="Fullscreen" onclick="fullScreen()">
+                                    <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div id="elevation_chart"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- STREETVIEW_PLAYER -->
+                  </div>
+                  <script>
+                    (function (i, s, o, g, r, a, m) {
+                      i['GoogleAnalyticsObject'] = r;
+                      i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                      }, i[r].l = 1 * new Date();
+                      a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                      a.async = 1;
+                      a.src = g;
+                      m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                  </script>
+                
+
+                  <script src="/javascripts/async.min.js" type="text/javascript"></script>
+                 
+                  <script type="text/javascript" src="/javascripts/j.js"></script>
+                  <script type="text/javascript" src="/javascripts/gif.js"></script>
+                  <script src="/javascripts/bootstrap.min.js"></script>                 
+                  `
+                    $("#dialog-text").html("");
+                    $("#dialog-text").append(stationInfoHtml);
+                    $("#dialog").dialog("open");
                 }
                 else {
                     window.alert('Directions request failed due to ' + status);

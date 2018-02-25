@@ -43,3 +43,14 @@ module.exports.doEdit = (req, res, next) => {
             }
         })
 }
+
+module.exports.doDelete = (req, res, next) => {
+    User.findByIdAndRemove(req.params.id)
+    .then(
+        User.findOne({userId: req.user})
+        .then(user => {
+            res.redirect('/logout');
+        })
+    )
+    .catch((error) => next(error));
+}

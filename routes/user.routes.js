@@ -18,6 +18,7 @@ const secure = require('../middleware/security.middleware');
 router.get('/:id', secure.isMyProfile, userController.profile);
 router.get('/edit/:id', secure.isMyProfile, userController.edit);
 router.post('/edit/:id', [secure.isMyProfile, parser.single('avatar')], userController.doEdit);
+router.post('/delete/:id', secure.isMyProfile, userController.doDelete);
 
 
 module.exports = router;
