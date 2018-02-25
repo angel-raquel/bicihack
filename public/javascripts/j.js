@@ -213,7 +213,7 @@
                         "route-name-label"
                       ).innerHTML = document.getElementById("routename").value)
                     : (document.getElementById("route-name-label").innerHTML =
-                        e.value + " to " + t.value),
+                        e.value + " --> " + t.value),
                   void c({ origin: e.value, destination: t.value }))
         );
       }),
@@ -471,7 +471,7 @@
           document.mozFullScreenElement ||
           document.msFullscreenElement
             ? ((N.height = screen.availHeight), (N.width = screen.availWidth))
-            : ((N.width = N.parentNode.offsetWidth), (N.height = 700)),
+            : ((N.width = N.parentNode.offsetWidth), (N.height = 300)),
             0 === e.m_aImages.length
               ? e.getLoadedImages(function(n, o) {
                   (e.m_aImages = o), f(N.width, N.height, 512, 512, e, A), t();
