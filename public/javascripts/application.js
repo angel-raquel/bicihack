@@ -157,6 +157,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, 
                     $("#dialog").dialog({
                         height: 610,
                         width: 610,
+                        draggable: true,
                         autoOpen: false,
                         show: {
                             effect: "blind",
@@ -165,7 +166,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orgPos, 
                         hide: {
                             effect: "explode",
                             duration: 500
-                        }
+                        },
+                        position:{my:"right top",at:"right-100 top+100", of:"body"}
                     });
                     var stationInfoHtml = `
                     <div class="container-fluid">
